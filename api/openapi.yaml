@@ -1,0 +1,640 @@
+openapi: 3.1.0
+info:
+  title: fBoard REST API
+  description: >
+    REST API for controlling the fBoard macOS whiteboard application.
+    Provides endpoints for window management, background customization,
+    preset management, and screen information.
+  version: 1.0.0
+  contact:
+    name: finfra.kr
+
+servers:
+  - url: http://localhost:3012
+    description: Local development server (default port)
+
+paths:
+  /:
+    get:
+      summary: Health check
+      operationId: healthCheck
+      tags: [Server]
+      responses:
+        "200":
+          description: Server is running
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  app:
+                    type: string
+                    example: fBoard
+                  version:
+                    type: string
+                    example: 1.0.0
+                  port:
+                    type: integer
+                    example: 3012
+
+  /api/status:
+    get:
+      summary: Get full application status
+      operationId: getStatus
+      tags: [Server]
+      responses:
+        "200":
+          description: Full application state
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  window:
+                    $ref: "#/components/schemas/WindowState"
+                  background:
+                    $ref: "#/components/schemas/BackgroundState"
+                  server:
+                    type: object
+                    properties:
+                      port:
+                        type: integer
+                        example: 3012
+                      uptime:
+                        type: integer
+                        description: Uptime in seconds
+                        example: 3600
+
+  /api/window:
+    get:
+      summary: Get window state
+      operationId: getWindow
+      tags: [Window]
+      responses:
+        "200":
+          description: Current window state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WindowState"
+
+  /api/window/level:
+    post:
+      summary: Set window level
+      operationId: setWindowLevel
+      tags: [Window]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [level]
+              properties:
+                level:
+                  type: string
+                  enum: [normal, floating, background]
+      responses:
+        "200":
+          description: Window level updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessWithLevel"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /api/window/frame:
+    post:
+      summary: Set window position and size
+      operationId: setWindowFrame
+      tags: [Window]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                x:
+                  type: number
+                  description: X coordinate (keeps current value if omitted)
+                y:
+                  type: number
+                  description: Y coordinate (keeps current value if omitted)
+                width:
+                  type: number
+                  description: Width (keeps current value if omitted)
+                height:
+                  type: number
+                  description: Height (keeps current value if omitted)
+      responses:
+        "200":
+          description: Window frame updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  frame:
+                    $ref: "#/components/schemas/Frame"
+
+  /api/window/center:
+    post:
+      summary: Center window on current screen
+      operationId: centerWindow
+      tags: [Window]
+      responses:
+        "200":
+          description: Window centered
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  frame:
+                    $ref: "#/components/schemas/Frame"
+
+  /api/window/reset:
+    post:
+      summary: Reset window to default size
+      operationId: resetWindow
+      tags: [Window]
+      responses:
+        "200":
+          description: Window reset to default
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  frame:
+                    $ref: "#/components/schemas/Frame"
+
+  /api/window/fullscreen:
+    post:
+      summary: Toggle fullscreen mode
+      operationId: toggleFullscreen
+      tags: [Window]
+      responses:
+        "200":
+          description: Fullscreen toggled
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  isFullScreen:
+                    type: boolean
+
+  /api/window/move-screen:
+    post:
+      summary: Move window to another screen
+      operationId: moveToScreen
+      tags: [Window]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [screenIndex]
+              properties:
+                screenIndex:
+                  type: integer
+                  description: Target screen index (0-based)
+      responses:
+        "200":
+          description: Window moved to target screen
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  screenIndex:
+                    type: integer
+                    example: 1
+                  screenName:
+                    type: string
+                    example: DELL U2723QE
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /api/background:
+    get:
+      summary: Get background state
+      operationId: getBackground
+      tags: [Background]
+      responses:
+        "200":
+          description: Current background state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BackgroundState"
+
+  /api/background/color:
+    post:
+      summary: Set background color
+      operationId: setBackgroundColor
+      tags: [Background]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [color]
+              properties:
+                color:
+                  type: string
+                  pattern: "^#[0-9A-Fa-f]{6}$"
+                  description: HEX color code
+                  example: "#FF5733"
+                opacity:
+                  type: number
+                  minimum: 0.0
+                  maximum: 1.0
+                  default: 1.0
+                  description: Opacity value
+      responses:
+        "200":
+          description: Background color updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  color:
+                    type: string
+                    example: "#FF5733"
+                  opacity:
+                    type: number
+                    example: 0.8
+
+  /api/background/image:
+    post:
+      summary: Set background image
+      operationId: setBackgroundImage
+      tags: [Background]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [path]
+              properties:
+                path:
+                  type: string
+                  description: Absolute path to image file
+                fillMode:
+                  type: string
+                  enum: [fit, fill, stretch, tile]
+                  default: fill
+      responses:
+        "200":
+          description: Background image set
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  imagePath:
+                    type: string
+                  fillMode:
+                    type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+    delete:
+      summary: Remove background image (revert to solid color)
+      operationId: removeBackgroundImage
+      tags: [Background]
+      responses:
+        "200":
+          description: Background image removed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  type:
+                    type: string
+                    example: color
+
+  /api/background/fill-mode:
+    post:
+      summary: Change image fill mode
+      operationId: setFillMode
+      tags: [Background]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [fillMode]
+              properties:
+                fillMode:
+                  type: string
+                  enum: [fit, fill, stretch, tile]
+      responses:
+        "200":
+          description: Fill mode updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  fillMode:
+                    type: string
+
+  /api/presets:
+    get:
+      summary: List all presets
+      operationId: getPresets
+      tags: [Presets]
+      responses:
+        "200":
+          description: Preset list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  presets:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Preset"
+                  count:
+                    type: integer
+    post:
+      summary: Save current window state as a preset
+      operationId: savePreset
+      tags: [Presets]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
+                  description: Preset name
+      responses:
+        "201":
+          description: Preset created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  preset:
+                    $ref: "#/components/schemas/Preset"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /api/presets/apply:
+    post:
+      summary: Apply a preset
+      operationId: applyPreset
+      tags: [Presets]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [id]
+              properties:
+                id:
+                  type: string
+                  description: Preset UUID
+      responses:
+        "200":
+          description: Preset applied
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  appliedPreset:
+                    type: string
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /api/presets/{id}:
+    delete:
+      summary: Delete a preset
+      operationId: deletePreset
+      tags: [Presets]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Preset UUID
+      responses:
+        "200":
+          description: Preset deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  deletedPreset:
+                    type: string
+        "403":
+          description: Cannot delete built-in preset
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /api/screens:
+    get:
+      summary: List connected screens
+      operationId: getScreens
+      tags: [Screens]
+      responses:
+        "200":
+          description: Screen list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  screens:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Screen"
+                  count:
+                    type: integer
+
+components:
+  schemas:
+    Frame:
+      type: object
+      properties:
+        x:
+          type: number
+        y:
+          type: number
+        width:
+          type: number
+        height:
+          type: number
+      example:
+        x: 0
+        y: 0
+        width: 1920
+        height: 1080
+
+    WindowState:
+      type: object
+      properties:
+        frame:
+          $ref: "#/components/schemas/Frame"
+        level:
+          type: string
+          enum: [normal, floating, background]
+        isFullScreen:
+          type: boolean
+        screenIndex:
+          type: integer
+        screenName:
+          type: string
+
+    BackgroundState:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [color, image]
+        color:
+          type: string
+          description: HEX color code
+          example: "#FFFFFF"
+        opacity:
+          type: number
+          example: 1.0
+        imagePath:
+          type: string
+          nullable: true
+        fillMode:
+          type: string
+          enum: [fit, fill, stretch, tile]
+
+    Preset:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        frame:
+          $ref: "#/components/schemas/Frame"
+        windowLevel:
+          type: string
+          enum: [normal, floating, background]
+        isBuiltIn:
+          type: boolean
+
+    Screen:
+      type: object
+      properties:
+        index:
+          type: integer
+        name:
+          type: string
+        frame:
+          $ref: "#/components/schemas/Frame"
+        isMain:
+          type: boolean
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+
+    SuccessWithLevel:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        level:
+          type: string
+          enum: [normal, floating, background]
+
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+tags:
+  - name: Server
+    description: Server status and health check
+  - name: Window
+    description: Window position, size, and level control
+  - name: Background
+    description: Background color and image management
+  - name: Presets
+    description: Window preset save, apply, and delete
+  - name: Screens
+    description: Connected display information
