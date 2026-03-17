@@ -2,6 +2,8 @@
 
 이 문서는 프로젝트 내의 주요 용어와 다국어 번역을 정리한 문서입니다. 개발 및 매뉴얼 작성 시 이 용어를 기준으로 합니다.
 
+## UI 및 기본 개념 (UI & Basic Concepts)
+
 | 설명(개발용)                               | English             | Korean             | Japanese                 | Simplified Chinese |
 | :----------------------------------------- | :------------------ | :----------------- | :----------------------- | :----------------- |
 | 테두리와 제목 표시줄이 없는 디자인         | Chromeless Window   | 크롬리스 윈도우    | クロムレスウィンドウ     | 无边框窗口         |
@@ -19,7 +21,63 @@
 | 패턴처럼 쪼개어 무늬로 나열                | Tile                | 타일               | タイル                   | 平铺               |
 | 앱의 동작을 제어하는 환경 옵션 윈도우      | Preferences         | 설정               | 環境設定                 | 设置               |
 
-> **참고**:
-> *   빈 칸은 아직 번역이 확정되지 않았거나, 해당 언어 리소스 파일에서 정확한 매칭을 찾지 못한 항목입니다.
-> *   Source Code References: `Localizable.strings`, `prd.md`
-> *   일반단어라서 Glossary에서 빠진 항목들 : 취소, 저장, 닫기, 종료, 확인, 설정 등
+## 프리셋 관리 (Preset Management)
+
+| 설명(개발용)                                 | English             | Korean             | Japanese                 | Simplified Chinese |
+| :------------------------------------------- | :------------------ | :----------------- | :----------------------- | :----------------- |
+| 윈도우 위치/크기 사전 설정                  | Preset              | 프리셋             | プリセット               | 预设               |
+| 내장 프리셋 (삭제 불가)                     | Built-in Preset     | 내장 프리셋        | 内蔵プリセット           | 内置预设           |
+| 사용자가 저장한 프리셋                       | User Preset         | 사용자 프리셋      | ユーザープリセット       | 用户预设           |
+| 프리셋 목록 관리 대화                        | Preset Manager      | 프리셋 관리        | プリセット管理           | 预设管理           |
+| 프리셋 저장/적용                            | Apply Preset        | 프리셋 적용        | プリセット適用           | 应用预设           |
+
+## REST API 및 원격 제어 (REST API & Remote Control)
+
+| 설명(개발용)                                 | English             | Korean             | Japanese                 | Simplified Chinese |
+| :------------------------------------------- | :------------------ | :----------------- | :----------------------- | :----------------- |
+| HTTP REST 서버                              | REST API            | REST API           | REST API                 | REST API           |
+| IP 주소 범위 지정 (Classless Inter-Domain Routing) | CIDR            | CIDR               | CIDR                     | CIDR               |
+| 외부 네트워크 접속 허용                      | Allow External Access | 외부 접속 허용    | 外部接続許可             | 允许外部连接       |
+| API 서버 활성화/비활성화                     | API Enable          | API 활성화         | API 有効                 | API 启用           |
+| 서버 포트 번호                              | Port                | 포트               | ポート                   | 端口               |
+| 서버 상태 표시                              | Server Status       | 서버 상태          | サーバー状態             | 服务器状态         |
+
+## 다국어 및 외관 (Localization & Appearance)
+
+| 설명(개발용)                                 | English             | Korean             | Japanese                 | Simplified Chinese |
+| :------------------------------------------- | :------------------ | :----------------- | :----------------------- | :----------------- |
+| 앱 외관 모드 (라이트/다크)                  | Appearance Mode     | 외관 모드          | 外観モード               | 外观模式           |
+| 시스템 기본 설정 따라가기                    | System Default      | 시스템 기본        | システムデフォルト       | 系统默认           |
+| 밝은 배경 모드                              | Light Mode          | 라이트 모드        | ライトモード             | 浅色模式           |
+| 어두운 배경 모드                            | Dark Mode           | 다크 모드          | ダークモード             | 深色模式           |
+| 사용자 인터페이스 언어                      | Language            | 언어               | 言語                     | 语言               |
+| 한국어                                      | Korean              | 한국어             | 韓国語                   | 韩语               |
+| 영어                                        | English             | 영어               | 英語                     | 英语               |
+| 일본어                                      | Japanese            | 일본어             | 日本語                   | 日语               |
+| 간체 중국어                                 | Simplified Chinese  | 간체 중국어        | 簡体中国語               | 简体中文           |
+| 번체 중국어                                 | Traditional Chinese | 번체 중국어        | 繁体中国語               | 繁体中文           |
+| 독일어                                      | German              | 독일어             | ドイツ語                 | 德语               |
+| 스페인어                                    | Spanish             | 스페인어           | スペイン語               | 西班牙语           |
+| 프랑스어                                    | French              | 프랑스어           | フランス語               | 法语               |
+
+## 설정 및 관리 (Settings & Management)
+
+| 설명(개발용)                                 | English             | Korean             | Japanese                 | Simplified Chinese |
+| :------------------------------------------- | :------------------ | :----------------- | :----------------------- | :----------------- |
+| 설정창 탭 (General)                         | General             | 일반               | 一般                     | 常规               |
+| 설정창 탭 (Shortcuts)                       | Shortcuts           | 단축키             | ショートカット           | 快捷键             |
+| 설정창 탭 (Background)                      | Background          | 배경               | 背景                     | 背景               |
+| 설정창 탭 (Presets)                         | Presets             | 프리셋             | プリセット               | 预设               |
+| 설정창 탭 (Advanced)                        | Advanced            | 고급               | 詳細設定                 | 高级               |
+| 컨텍스트 메뉴 (우클릭)                      | Context Menu        | 컨텍스트 메뉴      | コンテキストメニュ       | 右键菜单           |
+| 기본 이미지 폴더                            | Default Image Folder | 기본 이미지 폴더  | デフォルト画像フォルダ   | 默认图像文件夹     |
+
+## 참고 (Reference)
+
+> **수집 출처**:
+> *   Source Code: `Localizable.xcstrings`, `PreferencesWindowController.swift`, `PresetManager.swift`, `RESTServer.swift`
+> *   최종 업데이트: 2026-03-17
+>
+> **참고 사항**:
+> *   일반 단어 (저장, 취소, 닫기, 종료, 확인 등)는 각 언어별 기본 표준에 따릅니다.
+> *   앱 재시작, 외관 변경 등 UI 관련 동작은 각 언어별 표준 용어를 사용합니다.
