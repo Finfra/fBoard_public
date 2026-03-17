@@ -9,19 +9,25 @@
 
 ## 디렉토리 구조(제안)
 - 01_Overview/
-  - Introduction.md: fBoard 개요, 주요 기능(크롬리스 윈도우, 배경 설정)
-  - Architecture.md: 아키텍처 요약 (Swift, AppKit, UserDefaults)
+  - Introduction.md: fBoard 개요, 주요 기능(크롬리스 윈도우, 배경 설정, 프리셋, REST API)
+  - Architecture.md: 아키텍처 요약 (Swift, AppKit, UserDefaults, Network)
     - 참조: `prd.md`, `README.md`
 - 02_Install/
   - Install_macOS.md: 요구사항(macOS 12.0+), 설치 방법, 빌드 절차
 - 03_UserGuide/
   - WindowControl.md: 윈도우 이동, 크기 조절, 단축키 사용법
   - BackgroundSettings.md: 색상 및 이미지 배경 설정, 채우기 모드(맞춤, 채우기, 늘리기, 타일)
+  - PresetGuide.md: 프리셋 저장/관리 사용법, 내장 프리셋 소개
+  - RESTAPIGuide.md: REST API 활성화, 기본 요청 예시, 보안 설정
 - 04_FunctionalSpec/
-  - FunctionalSpecification.md: 핵심 기능 명세 및 동작 원리
+  - FunctionalSpecification.md: 핵심 기능 명세 및 동작 원리 (프리셋, REST API 포함)
 - 05_Reference/
-  - Shortcuts.md: 앱 내 단축키 (`Cmd + ,`, `Cmd + 0`, `Ctrl + Cmd + F` 등)
+  - Shortcuts.md: 앱 내 단축키 (기본, 윈도우 레벨, 프리셋, 스크린 이동)
+  - RESTAPIReference.md: REST API 엔드포인트 완전 레퍼런스 (18개 모두)
   - ReferenceAgenda.md: 매뉴얼 참조 어젠다
+- 06_PreferencesPanel/
+  - SettingsPanel.md: 5탭 설정 패널 상세 가이드 (General, Shortcuts, Background, Presets, Advanced)
+  - Localization.md: 다국어 지원 언어 목록 및 설정 방법
 - 99_Appendix/
   - Glossary.md: 용어 사전(프로젝트 용어 통일)
 
@@ -35,6 +41,13 @@
 - [ ] 02_Install/Install_macOS.md (요구사항 및 빌드 안내)
 - [ ] 03_UserGuide/WindowControl.md (단축키 포함)
 - [ ] 03_UserGuide/BackgroundSettings.md (설정 패널 캡처 포함)
+- [ ] 03_UserGuide/PresetGuide.md (프리셋 사용법)
+- [ ] 03_UserGuide/RESTAPIGuide.md (REST API 빠른 시작)
+- [ ] 04_FunctionalSpec/FunctionalSpecification.md ✅ (업데이트 완료: 2026.03.17)
+- [ ] 05_Reference/Shortcuts.md (단축키 완전 레퍼런스)
+- [ ] 05_Reference/RESTAPIReference.md (REST API 엔드포인트 18개 모두)
+- [ ] 06_PreferencesPanel/SettingsPanel.md (5탭 설정 패널)
+- [ ] 06_PreferencesPanel/Localization.md (다국어 지원 8개 언어)
 
 ## 관련 문서(핵심 링크)
 - PRD: `prd.md`
