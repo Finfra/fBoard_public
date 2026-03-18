@@ -12,6 +12,14 @@ fBoard provides a REST API for remotely controlling the macOS whiteboard applica
 
 ---
 
+## Security
+
+- The API server is **disabled by default** and must be explicitly enabled in settings.
+- By default, only **localhost (127.0.0.1)** connections are allowed.
+- No authentication mechanism is currently implemented. Use only within trusted local network environments.
+
+---
+
 ## Endpoints
 
 ### 1. Health Check
@@ -643,10 +651,10 @@ r = requests.post(f"{BASE}/api/presets/apply",
 
 ```bash
 # Run automated tests (19 items)
-bash test-api.sh
+bash _public/api/test-api.sh
 
 # Remote server test
-bash test-api.sh --server=http://192.168.0.10:3012
+bash _public/api/test-api.sh --server=http://192.168.0.10:3012
 ```
 
 Test items:
