@@ -15,6 +15,8 @@ tags: [매뉴얼, 사용자 가이드, 기능 명세]
 6. [REST API 원격 제어](#6-rest-api-원격-제어-rest-server)
 7. [설정 패널](#7-설정-패널-preferences)
 8. [다국어 지원](#8-다국어-지원-localization)
+9. [Claude Code Skill 연동](#9-claude-code-skill-연동)
+10. [MCP 연동](#10-mcp-model-context-protocol-연동)
 
 ---
 
@@ -240,24 +242,145 @@ fBoard는 데스크톱에서 항상 떠 있어야 하는 성격을 감안하여 
 
 ## 6.5 사용 예시
 
-### Python으로 배경색 변경
+### curl 사용 예시
+
+```bash
+# 헬스 체크
+curl http://localhost:3012/
+
+# 앱 전체 상태 조회
+curl http://localhost:3012/api/status
+
+# 윈도우 정보 조회
+curl http://localhost:3012/api/window
+
+# 윈도우 레벨 변경 (normal / floating / background)
+curl -X POST http://localhost:3012/api/window/level \
+  -H "Content-Type: application/json" \
+  -d '{"level": "floating"}'
+
+# 윈도우 위치/크기 설정
+curl -X POST http://localhost:3012/api/window/frame \
+  -H "Content-Type: application/json" \
+  -d '{"x": 100, "y": 100, "width": 1200, "height": 800}'
+
+# 윈도우 화면 중앙 정렬
+curl -X POST http://localhost:3012/api/window/center
+
+# 윈도우 크기 초기화 (800×600)
+curl -X POST http://localhost:3012/api/window/reset
+
+# 전체 화면 토글
+curl -X POST http://localhost:3012/api/window/fullscreen
+
+# 배경색 변경 (HEX + opacity)
+curl -X POST http://localhost:3012/api/background/color \
+  -H "Content-Type: application/json" \
+  -d '{"color": "#FF5733", "opacity": 1.0}'
+
+# 배경 이미지 설정
+curl -X POST http://localhost:3012/api/background/image \
+  -H "Content-Type: application/json" \
+  -d '{"path": "/Users/Shared/wallpaper.png"}'
+
+# 이미지 채우기 모드 변경 (fit / fill / stretch / tile)
+curl -X POST http://localhost:3012/api/background/fill-mode \
+  -H "Content-Type: application/json" \
+  -d '{"mode": "fill"}'
+
+# 배경 이미지 제거 (색상으로 복귀)
+curl -X DELETE http://localhost:3012/api/background/image
+
+# 프리셋 목록 조회
+curl http://localhost:3012/api/presets
+
+# 프리셋 적용 (UUID)
+curl -X POST http://localhost:3012/api/presets/apply \
+  -H "Content-Type: application/json" \
+  -d '{"id": "00000000-0000-0000-0000-000000000001"}'
+
+# 프리셋 저장
+curl -X POST http://localhost:3012/api/presets \
+  -H "Content-Type: application/json" \
+  -d '{"name": "발표용 레이아웃"}'
+
+# 프리셋 삭제 (사용자 프리셋만 가능)
+curl -X DELETE http://localhost:3012/api/presets/{preset-uuid}
+
+# 연결된 모니터 정보 조회
+curl http://localhost:3012/api/screens
+```
+
+### Python 클라이언트 예시
 
 ```python
 import requests
 
+BASE_URL = "http://localhost:3012"
+
+# 배경색 변경
 response = requests.post(
-    "http://localhost:3012/api/background/color",
-    json={"color": "#FF5733"}
+    f"{BASE_URL}/api/background/color",
+    json={"color": "#FF5733", "opacity": 1.0}
 )
 print(response.json())
+
+# 윈도우 상태 조회
+status = requests.get(f"{BASE_URL}/api/status")
+print(status.json())
+
+# 프리셋 목록 조회 및 첫 번째 프리셋 적용
+presets = requests.get(f"{BASE_URL}/api/presets").json()
+if presets.get("presets"):
+    first_id = presets["presets"][0]["id"]
+    requests.post(f"{BASE_URL}/api/presets/apply", json={"id": first_id})
+
+# 윈도우 위치/크기 설정
+requests.post(f"{BASE_URL}/api/window/frame", json={
+    "x": 200, "y": 150, "width": 1024, "height": 768
+})
+
+# 전체 화면 전환
+requests.post(f"{BASE_URL}/api/window/fullscreen")
 ```
 
-### curl로 프리셋 적용
+### Node.js 클라이언트 예시
 
-```bash
-curl -X POST http://localhost:3012/api/presets/apply \
-  -H "Content-Type: application/json" \
-  -d '{"id": "00000000-0000-0000-0000-000000000001"}'
+```javascript
+const BASE_URL = "http://localhost:3012";
+
+// 배경색 변경
+async function setBackgroundColor(color, opacity = 1.0) {
+  const res = await fetch(`${BASE_URL}/api/background/color`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ color, opacity }),
+  });
+  return res.json();
+}
+
+// 윈도우 상태 조회
+async function getStatus() {
+  const res = await fetch(`${BASE_URL}/api/status`);
+  return res.json();
+}
+
+// 프리셋 적용
+async function applyPreset(id) {
+  const res = await fetch(`${BASE_URL}/api/presets/apply`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id }),
+  });
+  return res.json();
+}
+
+// 사용 예시
+(async () => {
+  await setBackgroundColor("#3498DB");
+  const status = await getStatus();
+  console.log("현재 상태:", status);
+})();
 ```
 
 ---
@@ -359,5 +482,224 @@ fBoard는 8개 언어를 지원합니다.
 - 설정 패널 UI 및 모든 탭
 - 대화상자 및 알림 메시지
 - 단축키 레이블
+
+---
+
+# 9. Claude Code Skill 연동
+
+fBoard는 Claude Code Plugin(Skill)을 통해 대화형 AI 환경에서 직접 제어할 수 있습니다. Claude Code 터미널에서 슬래시 커맨드(`/fboard:fboard`)를 입력하면 fBoard REST API를 호출하여 배경색 변경, 프리셋 적용, 윈도우 조작 등을 수행합니다.
+
+## 9.1 전제 조건
+
+- fBoard 앱이 실행 중이어야 합니다.
+- fBoard REST API 서버가 활성화되어 있어야 합니다. (설정 > Advanced > REST API 서버 활성화)
+- Claude Code가 설치되어 있어야 합니다.
+
+## 9.2 설치 방법
+
+### 방법 1: Plugin 설치 (권장)
+
+```bash
+# Claude Code Plugin으로 직접 설치
+claude plugin add fboard
+```
+
+### 방법 2: 수동 복사
+
+fBoard 프로젝트의 `.claude/commands/` 디렉토리에 있는 Skill 파일을 Claude Code 설정 폴더로 복사합니다.
+
+```bash
+# 글로벌 설치
+cp -r fBoard/.claude/commands/fboard.md ~/.claude/commands/
+
+# 프로젝트 로컬 설치
+cp -r fBoard/.claude/commands/fboard.md .claude/commands/
+```
+
+### 방법 3: Symbolic Link
+
+```bash
+# 심볼릭 링크로 항상 최신 버전 유지
+ln -sf /path/to/fBoard/.claude/commands/fboard.md ~/.claude/commands/fboard.md
+```
+
+## 9.3 사용 예시
+
+Claude Code 터미널에서 다음과 같이 슬래시 커맨드를 사용합니다:
+
+| 커맨드 | 설명 |
+|--------|------|
+| `/fboard:fboard color #FF5733` | 배경색을 `#FF5733`으로 변경 |
+| `/fboard:fboard preset fullscreen` | 전체 화면 프리셋 적용 |
+| `/fboard:fboard status` | 현재 fBoard 상태 조회 (윈도우, 배경, 서버) |
+| `/fboard:fboard window center` | 윈도우를 화면 중앙으로 이동 |
+| `/fboard:fboard window reset` | 윈도우 크기를 기본값(800×600)으로 초기화 |
+| `/fboard:fboard window level floating` | 윈도우를 항상 위에 표시 |
+| `/fboard:fboard presets list` | 프리셋 목록 조회 |
+| `/fboard:fboard background image /path/to/image.png` | 배경 이미지 설정 |
+
+## 9.4 동작 원리
+
+Claude Code Skill은 내부적으로 fBoard REST API(`http://localhost:3012`)를 호출합니다. 따라서 REST API 서버가 실행 중이지 않으면 Skill 커맨드가 동작하지 않습니다.
+
+```
+사용자 입력 → Claude Code Skill → HTTP 요청 → fBoard REST API → 앱 제어
+```
+
+---
+
+# 10. MCP (Model Context Protocol) 연동
+
+fBoard MCP 서버는 Claude Code 및 Claude Desktop과 같은 AI 도구에서 fBoard를 자연어로 제어할 수 있게 해주는 표준화된 인터페이스입니다. MCP(Model Context Protocol)를 통해 AI가 fBoard의 도구(Tool)를 직접 호출하여 윈도우 조작, 배경 변경, 프리셋 관리 등을 수행합니다.
+
+## 10.1 전제 조건
+
+- fBoard 앱이 실행 중이어야 합니다.
+- fBoard REST API 서버가 활성화되어 있어야 합니다.
+- Node.js 18 이상이 설치되어 있어야 합니다. (npx 사용 시)
+
+## 10.2 설치 방법
+
+### 방법 1: 글로벌 설치
+
+```bash
+npm install -g @fboard/mcp-server
+```
+
+### 방법 2: npx로 직접 실행 (설치 불필요)
+
+```bash
+npx @fboard/mcp-server
+```
+
+### 방법 3: 소스에서 빌드
+
+```bash
+git clone https://github.com/user/fboard-mcp-server.git
+cd fboard-mcp-server
+npm install && npm run build
+```
+
+## 10.3 Claude Code 설정
+
+Claude Code에서 MCP 서버를 연결하려면 설정 파일에 다음을 추가합니다:
+
+```json
+{
+  "mcpServers": {
+    "fboard": {
+      "command": "npx",
+      "args": ["@fboard/mcp-server"],
+      "env": {
+        "FBOARD_API_URL": "http://localhost:3012"
+      }
+    }
+  }
+}
+```
+
+## 10.4 Claude Desktop 설정
+
+Claude Desktop의 설정 파일(`claude_desktop_config.json`)에 다음을 추가합니다:
+
+**macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+
+```json
+{
+  "mcpServers": {
+    "fboard": {
+      "command": "npx",
+      "args": ["@fboard/mcp-server"],
+      "env": {
+        "FBOARD_API_URL": "http://localhost:3012"
+      }
+    }
+  }
+}
+```
+
+## 10.5 제공 도구 (19개)
+
+MCP 서버가 제공하는 도구 목록입니다. AI가 이 도구들을 직접 호출하여 fBoard를 제어합니다.
+
+### 상태 조회 (2개)
+
+| 도구 이름 | 설명 |
+|-----------|------|
+| `fboard_health_check` | 서버 헬스 체크 (앱 상태, 버전, 포트) |
+| `fboard_get_status` | 윈도우/배경/서버 전체 상태 조회 |
+
+### 윈도우 제어 (7개)
+
+| 도구 이름 | 설명 |
+|-----------|------|
+| `fboard_get_window` | 윈도우 위치, 크기, 레벨 조회 |
+| `fboard_set_window_level` | 윈도우 레벨 설정 (normal/floating/background) |
+| `fboard_set_window_frame` | 윈도우 위치/크기 설정 (x, y, width, height) |
+| `fboard_center_window` | 윈도우 화면 중앙 정렬 |
+| `fboard_reset_window` | 윈도우 크기 초기화 (800×600) |
+| `fboard_toggle_fullscreen` | 전체 화면 토글 |
+| `fboard_move_to_screen` | 특정 스크린으로 윈도우 이동 |
+
+### 배경 제어 (5개)
+
+| 도구 이름 | 설명 |
+|-----------|------|
+| `fboard_get_background` | 배경 상태 조회 (유형, 색상/이미지, 채우기 모드) |
+| `fboard_set_background_color` | 배경색 설정 (HEX 형식, opacity 옵션) |
+| `fboard_set_background_image` | 배경 이미지 설정 (파일 경로) |
+| `fboard_set_fill_mode` | 이미지 채우기 모드 변경 (fit/fill/stretch/tile) |
+| `fboard_remove_background_image` | 배경 이미지 제거 (색상으로 복구) |
+
+### 프리셋 관리 (4개)
+
+| 도구 이름 | 설명 |
+|-----------|------|
+| `fboard_get_presets` | 프리셋 목록 조회 (내장 + 사용자) |
+| `fboard_save_preset` | 현재 설정을 프리셋으로 저장 |
+| `fboard_apply_preset` | 프리셋 적용 (ID 또는 이름) |
+| `fboard_delete_preset` | 프리셋 삭제 (사용자 프리셋만) |
+
+### 화면 조회 (1개)
+
+| 도구 이름 | 설명 |
+|-----------|------|
+| `fboard_get_screens` | 연결된 모니터 정보 조회 |
+
+## 10.6 사용 예시
+
+MCP가 설정된 Claude Code 또는 Claude Desktop에서 자연어로 요청하면 AI가 적절한 도구를 자동으로 호출합니다.
+
+### 배경색 변경
+
+> **사용자**: "fBoard의 배경색을 파란색으로 변경해줘"
+>
+> **Claude**: `fboard_set_background_color` 도구를 호출하여 `#0000FF` 색상을 설정합니다.
+
+### 상태 확인
+
+> **사용자**: "현재 윈도우 상태를 알려줘"
+>
+> **Claude**: `fboard_get_status` 도구를 호출하여 윈도우 위치/크기, 배경 유형, 서버 상태 등을 보고합니다.
+
+### 프리셋 관리
+
+> **사용자**: "프리셋 목록 보여줘"
+>
+> **Claude**: `fboard_get_presets` 도구를 호출하여 내장 프리셋 4개와 사용자 프리셋 목록을 표시합니다.
+
+### 복합 작업
+
+> **사용자**: "발표 준비해줘 — 전체 화면으로 바꾸고 배경을 검은색으로 설정해"
+>
+> **Claude**: `fboard_toggle_fullscreen`과 `fboard_set_background_color`를 순차적으로 호출하여 두 가지 작업을 모두 수행합니다.
+
+## 10.7 동작 원리
+
+```
+사용자 자연어 → Claude AI → MCP Protocol → fBoard MCP 서버 → REST API → fBoard 앱
+```
+
+MCP 서버는 fBoard REST API의 래퍼(Wrapper) 역할을 하며, AI 도구 호출 규약(Tool Calling)에 맞게 인터페이스를 표준화합니다. 기존 REST API의 모든 기능을 MCP 도구로 1:1 매핑하여 제공합니다.
 
 ---

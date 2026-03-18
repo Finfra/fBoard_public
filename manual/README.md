@@ -28,6 +28,10 @@
 - 06_PreferencesPanel/
   - SettingsPanel.md: 5탭 설정 패널 상세 가이드 (General, Shortcuts, Background, Presets, Advanced)
   - Localization.md: 다국어 지원 언어 목록 및 설정 방법
+- 07_Integration/
+  - ClaudeSkillGuide.md: Claude Code Skill(Plugin) 설치 및 슬래시 커맨드 사용법
+  - MCPServerGuide.md: MCP 서버 설정, Claude Code/Desktop 연동, 도구 19개 레퍼런스
+  - APIClientExamples.md: curl, Python, Node.js REST API 클라이언트 예시
 - 99_Appendix/
   - Glossary.md: 용어 사전(프로젝트 용어 통일)
 
@@ -48,6 +52,9 @@
 - [ ] 05_Reference/RESTAPIReference.md (REST API 엔드포인트 18개 모두)
 - [ ] 06_PreferencesPanel/SettingsPanel.md (5탭 설정 패널)
 - [ ] 06_PreferencesPanel/Localization.md (다국어 지원 8개 언어)
+- [ ] 07_Integration/ClaudeSkillGuide.md (Claude Code Skill 설치 및 사용법)
+- [ ] 07_Integration/MCPServerGuide.md (MCP 서버 설정 및 도구 19개 레퍼런스)
+- [ ] 07_Integration/APIClientExamples.md (curl, Python, Node.js 클라이언트 예시)
 
 ## 관련 문서(핵심 링크)
 - PRD: `prd.md`

@@ -72,6 +72,20 @@
 | 컨텍스트 메뉴 (우클릭)                      | Context Menu        | 컨텍스트 메뉴      | コンテキストメニュ       | 右键菜单           |
 | 기본 이미지 폴더                            | Default Image Folder | 기본 이미지 폴더  | デフォルト画像フォルダ   | 默认图像文件夹     |
 
+## AI 연동 및 개발 도구 (AI Integration & Developer Tools)
+
+| 설명(개발용)                                 | English             | Korean             | Japanese                 | Simplified Chinese |
+| :------------------------------------------- | :------------------ | :----------------- | :----------------------- | :----------------- |
+| AI 도구 간 표준 통신 프로토콜               | MCP (Model Context Protocol) | MCP (Model Context Protocol) | MCP (Model Context Protocol) | MCP (模型上下文协议) |
+| Claude Code에서 사용하는 확장 플러그인       | Claude Code Plugin  | Claude Code Plugin | Claude Code Plugin       | Claude Code 插件   |
+| Claude Code의 슬래시 커맨드 기능            | Skill (Claude Code) | Skill (Claude Code) | スキル (Claude Code)     | 技能 (Claude Code) |
+| MCP 서버가 제공하는 개별 기능 단위           | MCP Tool            | MCP Tool           | MCP ツール               | MCP 工具           |
+| Anthropic의 데스크톱 AI 어시스턴트 앱        | Claude Desktop      | Claude Desktop     | Claude Desktop           | Claude Desktop     |
+| Node.js 패키지를 설치 없이 실행하는 도구     | npx                 | npx                | npx                      | npx                |
+| IP 주소 범위를 지정하는 표기법 (Classless Inter-Domain Routing) | CIDR | CIDR | CIDR | CIDR |
+| REST API 명세를 기술하는 표준 규격           | OpenAPI             | OpenAPI            | OpenAPI                  | OpenAPI            |
+| HTTP 기반 API 호출 클라이언트 도구           | REST Client         | REST Client        | REST クライアント        | REST 客户端        |
+
 ## 참고 (Reference)
 
 > **수집 출처**:

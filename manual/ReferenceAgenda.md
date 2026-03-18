@@ -128,3 +128,68 @@ curl -X POST http://localhost:3012/api/background/color \
 ### 7-3. 언어 변경 시 주의
 - 언어 변경 후 앱 재시작 필요
 - "지금 재시작" 또는 "나중에" 선택 가능
+
+## 8. Claude Code Skill 연동 (Claude Code Plugin)
+### 8-1. Skill 개요
+- fBoard Claude Code Plugin을 통해 슬래시 커맨드(`/fboard:fboard`)로 앱 제어
+- 내부적으로 REST API를 호출하여 동작
+
+### 8-2. 설치 방법
+- **Plugin 설치**: `claude plugin add fboard`
+- **수동 복사**: `.claude/commands/` 디렉토리에 Skill 파일 복사
+- **Symbolic Link**: 프로젝트 소스의 Skill 파일을 심볼릭 링크로 연결
+
+### 8-3. 주요 커맨드 참조
+| 커맨드 | 기능 |
+|--------|------|
+| `/fboard:fboard color #HEX` | 배경색 변경 |
+| `/fboard:fboard preset <name>` | 프리셋 적용 |
+| `/fboard:fboard status` | 상태 조회 |
+| `/fboard:fboard window center` | 윈도우 중앙 정렬 |
+| `/fboard:fboard window level <level>` | 윈도우 레벨 변경 |
+| `/fboard:fboard presets list` | 프리셋 목록 조회 |
+
+### 8-4. 전제 조건
+- fBoard 앱 실행 중
+- REST API 서버 활성화 (기본 포트: 3012)
+- Claude Code 설치
+
+## 9. MCP 서버 연동 (Model Context Protocol)
+### 9-1. MCP 서버 개요
+- AI 도구(Claude Code, Claude Desktop)에서 fBoard를 자연어로 제어
+- MCP 표준 프로토콜을 통한 도구 호출(Tool Calling) 방식
+
+### 9-2. 설치 및 설정
+- **글로벌 설치**: `npm install -g @fboard/mcp-server`
+- **npx 실행**: `npx @fboard/mcp-server` (설치 불필요)
+- **소스 빌드**: Git Clone 후 `npm install && npm run build`
+
+### 9-3. 클라이언트 설정 참조
+- **Claude Code**: `mcpServers` 설정에 `fboard` 서버 등록
+- **Claude Desktop**: `claude_desktop_config.json`에 서버 등록
+- 환경변수: `FBOARD_API_URL` (기본값: `http://localhost:3012`)
+
+### 9-4. 제공 도구 (19개)
+- **상태 조회 (2)**: 헬스 체크, 전체 상태
+- **윈도우 제어 (7)**: 위치/크기, 레벨, 중앙 정렬, 초기화, 전체 화면, 스크린 이동
+- **배경 제어 (5)**: 색상, 이미지, 채우기 모드, 이미지 제거
+- **프리셋 관리 (4)**: 조회, 저장, 적용, 삭제
+- **화면 조회 (1)**: 연결된 모니터 정보
+
+## 10. API 클라이언트 라이브러리 (API Client Libraries)
+### 10-1. curl (CLI)
+- 모든 REST API 엔드포인트를 curl로 직접 호출 가능
+- 상세 예시: FunctionalSpecification.md §6.5 참조
+
+### 10-2. Python 클라이언트
+- `requests` 라이브러리를 사용한 HTTP 호출
+- 상세 예시: FunctionalSpecification.md §6.5 참조
+
+### 10-3. Node.js 클라이언트
+- `fetch` API를 사용한 비동기 HTTP 호출
+- 상세 예시: FunctionalSpecification.md §6.5 참조
+
+### 10-4. 자동화 활용 패턴
+- 스크립트 기반 배치 제어 (다중 fBoard 인스턴스)
+- CI/CD 파이프라인에서 프레젠테이션 환경 자동 설정
+- AI 워크플로우 통합 (Claude Code Skill + MCP)
