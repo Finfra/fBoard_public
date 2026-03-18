@@ -234,7 +234,7 @@ fBoard는 데스크톱에서 항상 떠 있어야 하는 성격을 감안하여 
 
 | 설정 | 설명 |
 |------|------|
-| **localhost** | 항상 허용 (127.0.0.1, ::1) |
+| **localhost** | 항상 허용 (127.0.0.1, ::1, localhost) |
 | **외부 IP** | "외부 접속 허용" 활성화 시에만 접근 가능 |
 | **CIDR 필터** | 허용 CIDR 범위에 포함된 IP만 접근 (예: `192.168.1.0/24`, `10.0.0.0/8`) |
 
@@ -257,7 +257,7 @@ print(response.json())
 ```bash
 curl -X POST http://localhost:3012/api/presets/apply \
   -H "Content-Type: application/json" \
-  -d '{"name": "전체 화면"}'
+  -d '{"id": "00000000-0000-0000-0000-000000000001"}'
 ```
 
 ---

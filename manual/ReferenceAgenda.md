@@ -46,7 +46,7 @@
 
 ### 4-4. 마우스 드래그 및 모서리 크기 조절 (Mouse Interactions)
 - 우클릭: 컨텍스트 메뉴 (배경색/이미지 선택, 프리셋, 창 레벨 변경)
-- 우하단 코너 드래그: 윈도우 리사이즈
+- 가장자리/모서리 드래그: 윈도우 리사이즈 (4변 + 4모서리, 10pt 마진)
 
 ## 5. 프리셋 관리 (Preset Management)
 ### 5-1. 내장 프리셋 (Built-in Presets)
@@ -75,27 +75,30 @@
 - **CIDR 접근 제어**: 예) `127.0.0.1/32`, `192.168.1.0/24`
 
 ### 6-2. 엔드포인트 카테고리 (Endpoint Categories)
-**총 18개 엔드포인트:**
+**총 19개 엔드포인트 (18개 + OPTIONS):**
 - **윈도우 제어 (7)**: 레벨 변경, 크기 조절, 이동, 최대화/최소화 등
 - **배경 제어 (5)**: 색상 설정, 이미지 설정, 투명도 조절 등
 - **프리셋 관리 (4)**: 프리셋 조회, 저장, 삭제, 적용
-- **기타 (2)**: 상태 조회, 서버 정보
+- **상태 (2)**: 헬스 체크, 앱 전체 상태
+- **화면 조회 (1)**: 연결된 모니터 정보
 
 ### 6-3. 활용 예시 (Usage Examples)
 ```bash
-# 서버 시작 확인
-curl http://localhost:3012/api/info
+# 서버 상태 확인 (헬스 체크)
+curl http://localhost:3012/
 
 # 프리셋 목록 조회
 curl http://localhost:3012/api/presets
 
-# 전체 화면 적용 (프리셋 UUID)
-curl -X POST http://localhost:3012/api/presets/apply/00000000-0000-0000-0000-000000000001
+# 전체 화면 프리셋 적용 (UUID)
+curl -X POST http://localhost:3012/api/presets/apply \
+  -H "Content-Type: application/json" \
+  -d '{"id": "00000000-0000-0000-0000-000000000001"}'
 
-# 배경색 변경
+# 배경색 변경 (HEX + opacity)
 curl -X POST http://localhost:3012/api/background/color \
   -H "Content-Type: application/json" \
-  -d '{"hex":"#FFFFFF","alpha":1.0}'
+  -d '{"color": "#FFFFFF", "opacity": 1.0}'
 ```
 
 ### 6-4. CIDR 접근 제어
