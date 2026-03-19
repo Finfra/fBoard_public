@@ -160,14 +160,14 @@ curl -X POST http://localhost:3012/api/background/color \
 - MCP 표준 프로토콜을 통한 도구 호출(Tool Calling) 방식
 
 ### 9-2. 설치 및 설정
-- **글로벌 설치**: `npm install -g @fboard/mcp-server`
-- **npx 실행**: `npx @fboard/mcp-server` (설치 불필요)
-- **소스 빌드**: Git Clone 후 `npm install && npm run build`
+- **글로벌 설치**: `npm install -g fboard-mcp`
+- **npx 실행**: `npx -y fboard-mcp` (설치 불필요)
+- **Git Clone**: `git clone https://github.com/Finfra/fBoard_public.git` 후 `cd fBoard_public/mcp && npm install`
 
 ### 9-3. 클라이언트 설정 참조
 - **Claude Code**: `mcpServers` 설정에 `fboard` 서버 등록
 - **Claude Desktop**: `claude_desktop_config.json`에 서버 등록
-- 환경변수: `FBOARD_API_URL` (기본값: `http://localhost:3012`)
+- 환경변수: `FBOARD_SERVER` (기본값: `http://localhost:3012`)
 
 ### 9-4. 제공 도구 (19개)
 - **상태 조회 (2)**: 헬스 체크, 전체 상태

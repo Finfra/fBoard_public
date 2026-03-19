@@ -121,10 +121,10 @@ curl -s -X POST http://localhost:3012/api/window/frame \
 # List presets
 curl -s http://localhost:3012/api/presets
 
-# Apply preset
+# Apply preset by ID
 curl -s -X POST http://localhost:3012/api/presets/apply \
   -H 'Content-Type: application/json' \
-  -d '{"name":"fullscreen"}'
+  -d '{"id":"00000000-0000-0000-0000-000000000001"}'
 ```
 
 ### Status
