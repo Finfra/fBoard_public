@@ -651,10 +651,10 @@ r = requests.post(f"{BASE}/api/presets/apply",
 
 ```bash
 # Run automated tests (19 items)
-bash _public/api/test-api.sh
+bash api/test-api.sh
 
 # Remote server test
-bash _public/api/test-api.sh --server=http://192.168.0.10:3012
+bash api/test-api.sh --server=http://192.168.0.10:3012
 ```
 
 Test items:

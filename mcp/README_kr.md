@@ -33,7 +33,7 @@ npm install -g fboard-mcp
 
 ```bash
 git clone https://github.com/nowage/fBoard.git
-cd fBoard/_public/mcp
+cd fBoard_public/mcp
 npm install
 ```
 
@@ -62,7 +62,7 @@ npm install
     "fboard": {
       "command": "node",
       "args": [
-        "{PROJECT_ROOT-type-or-paste-it}/_public/mcp/index.js"
+        "{PROJECT_ROOT-type-or-paste-it}/mcp/index.js"
       ]
     }
   }
@@ -379,7 +379,7 @@ curl http://localhost:3012/
 ## npm 배포
 
 ```bash
-cd _public/mcp
+cd mcp
 npm publish
 ```
 

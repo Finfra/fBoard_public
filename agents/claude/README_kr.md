@@ -66,14 +66,14 @@ fBoard REST API를 통해 화이트보드 앱(윈도우 위치/크기, 배경색
 
 ```bash
 # fBoard 프로젝트 루트에서 실행
-cp -r _public/agents/claude/.claude-plugin .claude-plugin
-cp -r _public/agents/claude/skills .claude/skills
+cp -r agents/claude/.claude-plugin .claude-plugin
+cp -r agents/claude/skills .claude/skills
 ```
 
 ### 방법 3: 심볼릭 링크
 
 ```bash
-ln -sf _public/agents/claude/skills/fboard .claude/skills/fboard
+ln -sf agents/claude/skills/fboard .claude/skills/fboard
 ```
 
 ---
@@ -94,7 +94,7 @@ fBoard REST API 서버가 실행 중이어야 합니다:
 
 | 확장                        | 위치           | 설명                                           |
 | --------------------------- | -------------- | ---------------------------------------------- |
-| [MCP Server](../../mcp/)   | `_public/mcp/` | MCP 프로토콜로 화이트보드 제어 (Claude Desktop 호환) |
+| [MCP Server](../../mcp/)   | `mcp/` | MCP 프로토콜로 화이트보드 제어 (Claude Desktop 호환) |
 
 ---
 
