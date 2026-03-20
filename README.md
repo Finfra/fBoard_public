@@ -1,3 +1,7 @@
+[![ko](https://img.shields.io/badge/lang-ko-red.svg)](./README_kr.md)
+
+<a href="https://finfra.kr/product/fBoard/en/index.html"><img src="./manual/app-icon.png" width="28"> Product Page</a>
+
 # fBoard Pro
 
 > **Catch everyone's eye with your own custom screen board.**
@@ -21,8 +25,18 @@ macOS Custom Background Tool. Create beautiful presentation backgrounds, protect
 
 | Language | Link |
 |----------|------|
-| English | [fBoard - Product Page](http://finfra.kr/product/fBoard/en/index.html) |
-| Korean | [fBoard - 제품 페이지](http://finfra.kr/product/fBoard/kr/index.html) |
+| English | [fBoard - Product Page](https://finfra.kr/product/fBoard/en/index.html) |
+| Korean | [fBoard - 제품 페이지](https://finfra.kr/product/fBoard/kr/index.html) |
+
+## Other Apps by finfra
+
+| App | Description | Link |
+|-----|-------------|------|
+| fSnippet | Powerful text expansion & snippet tool | [Product Page](https://finfra.kr/product/fSnippet/en/index.html) |
+| fWarrange | The ultimate Mac window manager & layout restore | [Product Page](https://finfra.kr/product/fWarrange/en/index.html) |
+| fBanner | Clipboard to banner image, instantly | [Product Page](https://finfra.kr/product/fBanner/en/index.html) |
+| fQRGen | Clipboard to QR code, instantly | [Product Page](https://finfra.kr/product/fQRGen/en/index.html) |
+| fGoogleSheet | The fastest Google Sheets menu bar app for Mac | [Product Page](https://finfra.kr/product/fGoogleSheet/en/index.html) |
 
 ## Documentation
 
