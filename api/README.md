@@ -1,6 +1,10 @@
-# fBoard REST API Documentation
+---
+title: fBoard REST API Documentation
+description: fBoard REST API Documentation 문서
+date: 2026-03-26
+---
 
-## Overview
+# Overview
 
 fBoard provides a REST API for remotely controlling the macOS whiteboard application.
 
@@ -12,7 +16,7 @@ fBoard provides a REST API for remotely controlling the macOS whiteboard applica
 
 ---
 
-## Security
+# Security
 
 - The API server is **disabled by default** and must be explicitly enabled in settings.
 - By default, only **localhost (127.0.0.1)** connections are allowed.
@@ -20,9 +24,9 @@ fBoard provides a REST API for remotely controlling the macOS whiteboard applica
 
 ---
 
-## Endpoints
+# Endpoints
 
-### 1. Health Check
+## 1. Health Check
 
 ```
 GET /
@@ -40,7 +44,7 @@ GET /
 
 ---
 
-### 2. Get Full Application Status
+## 2. Get Full Application Status
 
 ```
 GET /api/status
@@ -72,7 +76,7 @@ GET /api/status
 
 ---
 
-### 3. Get Window State
+## 3. Get Window State
 
 ```
 GET /api/window
@@ -91,20 +95,20 @@ GET /api/window
 
 ---
 
-### 4. Set Window Level
+## 4. Set Window Level
 
 ```
 POST /api/window/level
 Content-Type: application/json
 ```
 
-#### Request Parameters
+### Request Parameters
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `level` | string | Yes | One of `"normal"`, `"floating"`, `"background"` |
 
-#### Request Example
+### Request Example
 
 ```json
 {
@@ -112,7 +116,7 @@ Content-Type: application/json
 }
 ```
 
-#### Response
+### Response
 
 **Success (200)**:
 ```json
@@ -131,14 +135,14 @@ Content-Type: application/json
 
 ---
 
-### 5. Set Window Position and Size
+## 5. Set Window Position and Size
 
 ```
 POST /api/window/frame
 Content-Type: application/json
 ```
 
-#### Request Parameters
+### Request Parameters
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
@@ -147,7 +151,7 @@ Content-Type: application/json
 | `width` | number | No | Width (keeps current value if omitted) |
 | `height` | number | No | Height (keeps current value if omitted) |
 
-#### Request Example
+### Request Example
 
 ```json
 {
@@ -158,7 +162,7 @@ Content-Type: application/json
 }
 ```
 
-#### Response (200)
+### Response (200)
 
 ```json
 {
@@ -169,7 +173,7 @@ Content-Type: application/json
 
 ---
 
-### 6. Center Window on Current Screen
+## 6. Center Window on Current Screen
 
 ```
 POST /api/window/center
@@ -185,7 +189,7 @@ POST /api/window/center
 
 ---
 
-### 7. Reset Window to Default Size
+## 7. Reset Window to Default Size
 
 ```
 POST /api/window/reset
@@ -201,7 +205,7 @@ POST /api/window/reset
 
 ---
 
-### 8. Toggle Fullscreen
+## 8. Toggle Fullscreen
 
 ```
 POST /api/window/fullscreen
@@ -217,20 +221,20 @@ POST /api/window/fullscreen
 
 ---
 
-### 9. Move Window to Another Screen
+## 9. Move Window to Another Screen
 
 ```
 POST /api/window/move-screen
 Content-Type: application/json
 ```
 
-#### Request Parameters
+### Request Parameters
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `screenIndex` | integer | Yes | Target screen index (0-based) |
 
-#### Request Example
+### Request Example
 
 ```json
 {
@@ -238,7 +242,7 @@ Content-Type: application/json
 }
 ```
 
-#### Response
+### Response
 
 **Success (200)**:
 ```json
@@ -258,7 +262,7 @@ Content-Type: application/json
 
 ---
 
-### 10. Get Background State
+## 10. Get Background State
 
 ```
 GET /api/background
@@ -277,21 +281,21 @@ GET /api/background
 
 ---
 
-### 11. Set Background Color
+## 11. Set Background Color
 
 ```
 POST /api/background/color
 Content-Type: application/json
 ```
 
-#### Request Parameters
+### Request Parameters
 
 | Field | Type | Required | Default | Description |
 |-------|------|----------|---------|-------------|
 | `color` | string | Yes | — | HEX color code (e.g., `"#FF5733"`) |
 | `opacity` | number | No | `1.0` | Opacity value (0.0 ~ 1.0) |
 
-#### Request Example
+### Request Example
 
 ```json
 {
@@ -300,7 +304,7 @@ Content-Type: application/json
 }
 ```
 
-#### Response (200)
+### Response (200)
 
 ```json
 {
@@ -312,21 +316,21 @@ Content-Type: application/json
 
 ---
 
-### 12. Set Background Image
+## 12. Set Background Image
 
 ```
 POST /api/background/image
 Content-Type: application/json
 ```
 
-#### Request Parameters
+### Request Parameters
 
 | Field | Type | Required | Default | Description |
 |-------|------|----------|---------|-------------|
 | `path` | string | Yes | — | Absolute path to image file |
 | `fillMode` | string | No | `"fill"` | `"fit"`, `"fill"`, `"stretch"`, `"tile"` |
 
-#### Request Example
+### Request Example
 
 ```json
 {
@@ -335,7 +339,7 @@ Content-Type: application/json
 }
 ```
 
-#### Response
+### Response
 
 **Success (200)**:
 ```json
@@ -355,7 +359,7 @@ Content-Type: application/json
 
 ---
 
-### 13. Remove Background Image
+## 13. Remove Background Image
 
 ```
 DELETE /api/background/image
@@ -371,20 +375,20 @@ DELETE /api/background/image
 
 ---
 
-### 14. Change Image Fill Mode
+## 14. Change Image Fill Mode
 
 ```
 POST /api/background/fill-mode
 Content-Type: application/json
 ```
 
-#### Request Parameters
+### Request Parameters
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `fillMode` | string | Yes | `"fit"`, `"fill"`, `"stretch"`, `"tile"` |
 
-#### Response (200)
+### Response (200)
 
 ```json
 {
@@ -395,7 +399,7 @@ Content-Type: application/json
 
 ---
 
-### 15. List All Presets
+## 15. List All Presets
 
 ```
 GET /api/presets
@@ -419,14 +423,14 @@ GET /api/presets
 
 ---
 
-### 16. Save Preset
+## 16. Save Preset
 
 ```
 POST /api/presets
 Content-Type: application/json
 ```
 
-#### Request Parameters
+### Request Parameters
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
@@ -434,7 +438,7 @@ Content-Type: application/json
 
 Automatically captures the current window state (position, size, level) and saves it as a preset.
 
-#### Request Example
+### Request Example
 
 ```json
 {
@@ -442,7 +446,7 @@ Automatically captures the current window state (position, size, level) and save
 }
 ```
 
-#### Response
+### Response
 
 **Success (201)**:
 ```json
@@ -467,20 +471,20 @@ Automatically captures the current window state (position, size, level) and save
 
 ---
 
-### 17. Apply Preset
+## 17. Apply Preset
 
 ```
 POST /api/presets/apply
 Content-Type: application/json
 ```
 
-#### Request Parameters
+### Request Parameters
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `id` | string | Yes | Preset UUID |
 
-#### Request Example
+### Request Example
 
 ```json
 {
@@ -488,7 +492,7 @@ Content-Type: application/json
 }
 ```
 
-#### Response
+### Response
 
 **Success (200)**:
 ```json
@@ -507,19 +511,19 @@ Content-Type: application/json
 
 ---
 
-### 18. Delete Preset
+## 18. Delete Preset
 
 ```
 DELETE /api/presets/{id}
 ```
 
-#### Path Parameters
+### Path Parameters
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `id` | string | Yes | Preset UUID |
 
-#### Response
+### Response
 
 **Success (200)**:
 ```json
@@ -538,7 +542,7 @@ DELETE /api/presets/{id}
 
 ---
 
-### 19. List Connected Screens
+## 19. List Connected Screens
 
 ```
 GET /api/screens
@@ -567,9 +571,9 @@ GET /api/screens
 
 ---
 
-## Usage Examples
+# Usage Examples
 
-### cURL
+## cURL
 
 ```bash
 # Health check
@@ -621,7 +625,7 @@ curl -X DELETE http://localhost:3012/api/presets/UUID-HERE
 curl http://localhost:3012/api/screens
 ```
 
-### Python
+## Python
 
 ```python
 import requests
@@ -647,7 +651,7 @@ r = requests.post(f"{BASE}/api/presets/apply",
 
 ---
 
-## Test
+# Test
 
 ```bash
 # Run automated tests (19 items)
@@ -680,7 +684,7 @@ Test items:
 
 ---
 
-## Error Response Format
+# Error Response Format
 
 All errors are returned in a consistent JSON format:
 

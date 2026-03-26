@@ -1,9 +1,13 @@
-# fBoard MCP Server
+---
+title: fBoard MCP Server
+description: fBoard MCP Server 문서
+date: 2026-03-26
+---
 
 fBoard REST API를 [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) 도구로 제공하는 서버입니다.
 AI 에이전트(Claude Code, Claude Desktop 등)에서 fBoard 화이트보드 앱을 직접 제어할 수 있습니다.
 
-## 전제 조건
+# 전제 조건
 
 fBoard 앱이 실행 중이고 REST API가 활성화되어 있어야 합니다:
 
@@ -15,9 +19,9 @@ fBoard 앱이 실행 중이고 REST API가 활성화되어 있어야 합니다:
 
 ---
 
-## 설치
+# 설치
 
-### 방법 1: 글로벌 설치 (권장)
+## 방법 1: 글로벌 설치 (권장)
 
 ```bash
 npm install -g fboard-mcp
@@ -25,11 +29,11 @@ npm install -g fboard-mcp
 
 [![npm](https://img.shields.io/npm/v/fboard-mcp)](https://www.npmjs.com/package/fboard-mcp)
 
-### 방법 2: npx (설치 없이 바로 실행)
+## 방법 2: npx (설치 없이 바로 실행)
 
 별도 설치 없이 MCP 설정에서 `npx`로 직접 실행합니다.
 
-### 방법 3: 소스에서 직접 실행
+## 방법 3: 소스에서 직접 실행
 
 ```bash
 git clone https://github.com/nowage/fBoard.git
@@ -39,9 +43,9 @@ npm install
 
 ---
 
-## 설정
+# 설정
 
-### Claude Code
+## Claude Code
 
 * `~/.claude/settings.json` 또는 프로젝트 `.claude/settings.json`에 추가:
   - Claude Desktop의 경우 `~/Library/Application Support/Claude/claude_desktop_config.json`에 추가:
@@ -80,7 +84,7 @@ npm install
 }
 ```
 
-### 글로벌 설치 후 사용
+## 글로벌 설치 후 사용
 
 ```json
 {
@@ -94,9 +98,9 @@ npm install
 
 ---
 
-## 제공 도구 (Tools)
+# 제공 도구 (Tools)
 
-### 1. `health_check`
+## 1. `health_check`
 
 fBoard 서버 상태를 확인합니다.
 
@@ -113,7 +117,7 @@ fBoard 서버 상태를 확인합니다.
 
 ---
 
-### 2. `get_status`
+## 2. `get_status`
 
 fBoard 전체 상태를 조회합니다 (윈도우, 배경, 프리셋 등).
 
@@ -121,7 +125,7 @@ fBoard 전체 상태를 조회합니다 (윈도우, 배경, 프리셋 등).
 
 ---
 
-### 3. `get_window`
+## 3. `get_window`
 
 윈도우 상태를 조회합니다 (위치, 크기, 레벨, 스크린 정보).
 
@@ -138,7 +142,7 @@ fBoard 전체 상태를 조회합니다 (윈도우, 배경, 프리셋 등).
 
 ---
 
-### 4. `set_window_level`
+## 4. `set_window_level`
 
 윈도우 레벨을 설정합니다.
 
@@ -150,7 +154,7 @@ fBoard 전체 상태를 조회합니다 (윈도우, 배경, 프리셋 등).
 
 ---
 
-### 5. `set_window_frame`
+## 5. `set_window_frame`
 
 윈도우 위치와 크기를 설정합니다.
 
@@ -170,7 +174,7 @@ fBoard 윈도우를 800x600 크기로 (100, 100) 위치에 설정해줘
 
 ---
 
-### 6. `center_window`
+## 6. `center_window`
 
 윈도우를 현재 스크린 중앙에 정렬합니다.
 
@@ -178,7 +182,7 @@ fBoard 윈도우를 800x600 크기로 (100, 100) 위치에 설정해줘
 
 ---
 
-### 7. `reset_window`
+## 7. `reset_window`
 
 윈도우를 기본 크기로 복원합니다.
 
@@ -186,7 +190,7 @@ fBoard 윈도우를 800x600 크기로 (100, 100) 위치에 설정해줘
 
 ---
 
-### 8. `toggle_fullscreen`
+## 8. `toggle_fullscreen`
 
 전체 화면 모드를 토글합니다.
 
@@ -194,7 +198,7 @@ fBoard 윈도우를 800x600 크기로 (100, 100) 위치에 설정해줘
 
 ---
 
-### 9. `move_to_screen`
+## 9. `move_to_screen`
 
 윈도우를 특정 스크린(모니터)으로 이동합니다.
 
@@ -206,7 +210,7 @@ fBoard 윈도우를 800x600 크기로 (100, 100) 위치에 설정해줘
 
 ---
 
-### 10. `get_background`
+## 10. `get_background`
 
 배경 상태를 조회합니다 (배경색, 이미지, 채우기 모드).
 
@@ -225,7 +229,7 @@ fBoard 윈도우를 800x600 크기로 (100, 100) 위치에 설정해줘
 
 ---
 
-### 11. `set_background_color`
+## 11. `set_background_color`
 
 배경색을 설정합니다.
 
@@ -243,7 +247,7 @@ fBoard 배경을 하늘색(#87CEEB)으로 80% 투명도로 설정해줘
 
 ---
 
-### 12. `set_background_image`
+## 12. `set_background_image`
 
 배경 이미지를 설정합니다.
 
@@ -256,7 +260,7 @@ fBoard 배경을 하늘색(#87CEEB)으로 80% 투명도로 설정해줘
 
 ---
 
-### 13. `remove_background_image`
+## 13. `remove_background_image`
 
 배경 이미지를 제거합니다.
 
@@ -264,7 +268,7 @@ fBoard 배경을 하늘색(#87CEEB)으로 80% 투명도로 설정해줘
 
 ---
 
-### 14. `set_fill_mode`
+## 14. `set_fill_mode`
 
 이미지 채우기 모드를 변경합니다.
 
@@ -276,7 +280,7 @@ fBoard 배경을 하늘색(#87CEEB)으로 80% 투명도로 설정해줘
 
 ---
 
-### 15. `get_presets`
+## 15. `get_presets`
 
 저장된 프리셋 목록을 조회합니다.
 
@@ -299,7 +303,7 @@ fBoard 배경을 하늘색(#87CEEB)으로 80% 투명도로 설정해줘
 
 ---
 
-### 16. `save_preset`
+## 16. `save_preset`
 
 현재 윈도우 상태를 프리셋으로 저장합니다.
 
@@ -311,7 +315,7 @@ fBoard 배경을 하늘색(#87CEEB)으로 80% 투명도로 설정해줘
 
 ---
 
-### 17. `apply_preset`
+## 17. `apply_preset`
 
 저장된 프리셋을 적용합니다.
 
@@ -323,7 +327,7 @@ fBoard 배경을 하늘색(#87CEEB)으로 80% 투명도로 설정해줘
 
 ---
 
-### 18. `delete_preset`
+## 18. `delete_preset`
 
 프리셋을 삭제합니다.
 
@@ -335,7 +339,7 @@ fBoard 배경을 하늘색(#87CEEB)으로 80% 투명도로 설정해줘
 
 ---
 
-### 19. `get_screens`
+## 19. `get_screens`
 
 연결된 스크린(모니터) 목록을 조회합니다.
 
@@ -357,9 +361,9 @@ fBoard 배경을 하늘색(#87CEEB)으로 80% 투명도로 설정해줘
 
 ---
 
-## 디버깅
+# 디버깅
 
-### MCP Inspector로 테스트
+## MCP Inspector로 테스트
 
 ```bash
 npx @modelcontextprotocol/inspector npx fboard-mcp
@@ -367,7 +371,7 @@ npx @modelcontextprotocol/inspector npx fboard-mcp
 
 브라우저에서 Inspector UI가 열리며, 각 도구를 직접 테스트할 수 있습니다.
 
-### 서버 연결 확인
+## 서버 연결 확인
 
 ```bash
 # fBoard REST API 서버가 실행 중인지 확인
@@ -376,7 +380,7 @@ curl http://localhost:3012/
 
 ---
 
-## npm 배포
+# npm 배포
 
 ```bash
 cd mcp
@@ -385,7 +389,7 @@ npm publish
 
 ---
 
-## 아키텍처
+# 아키텍처
 
 ```
 Claude Code / Claude Desktop
@@ -402,6 +406,6 @@ fBoard Server (localhost:3012)
 
 ---
 
-## 라이선스
+# 라이선스
 
 MIT

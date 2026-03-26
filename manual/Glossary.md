@@ -1,8 +1,12 @@
-# fBoard 용어 사전 (Glossary)
+---
+title: fBoard 용어 사전 (Glossary)
+description: fBoard 용어 사전 (Glossary) 문서
+date: 2026-03-26
+---
 
 이 문서는 프로젝트 내의 주요 용어와 다국어 번역을 정리한 문서입니다. 개발 및 매뉴얼 작성 시 이 용어를 기준으로 합니다.
 
-## UI 및 기본 개념 (UI & Basic Concepts)
+# UI 및 기본 개념 (UI & Basic Concepts)
 
 | 설명(개발용)                               | English             | Korean             | Japanese                 | Simplified Chinese |
 | :----------------------------------------- | :------------------ | :----------------- | :----------------------- | :----------------- |
@@ -21,7 +25,7 @@
 | 패턴처럼 쪼개어 무늬로 나열                | Tile                | 타일               | タイル                   | 平铺               |
 | 앱의 동작을 제어하는 환경 옵션 윈도우      | Preferences         | 설정               | 環境設定                 | 设置               |
 
-## 프리셋 관리 (Preset Management)
+# 프리셋 관리 (Preset Management)
 
 | 설명(개발용)                                 | English             | Korean             | Japanese                 | Simplified Chinese |
 | :------------------------------------------- | :------------------ | :----------------- | :----------------------- | :----------------- |
@@ -31,7 +35,7 @@
 | 프리셋 목록 관리 대화                        | Preset Manager      | 프리셋 관리        | プリセット管理           | 预设管理           |
 | 프리셋 저장/적용                            | Apply Preset        | 프리셋 적용        | プリセット適用           | 应用预设           |
 
-## REST API 및 원격 제어 (REST API & Remote Control)
+# REST API 및 원격 제어 (REST API & Remote Control)
 
 | 설명(개발용)                                 | English             | Korean             | Japanese                 | Simplified Chinese |
 | :------------------------------------------- | :------------------ | :----------------- | :----------------------- | :----------------- |
@@ -42,7 +46,7 @@
 | 서버 포트 번호                              | Port                | 포트               | ポート                   | 端口               |
 | 서버 상태 표시                              | Server Status       | 서버 상태          | サーバー状態             | 服务器状态         |
 
-## 다국어 및 외관 (Localization & Appearance)
+# 다국어 및 외관 (Localization & Appearance)
 
 | 설명(개발용)                                 | English             | Korean             | Japanese                 | Simplified Chinese |
 | :------------------------------------------- | :------------------ | :----------------- | :----------------------- | :----------------- |
@@ -60,7 +64,7 @@
 | 스페인어                                    | Spanish             | 스페인어           | スペイン語               | 西班牙语           |
 | 프랑스어                                    | French              | 프랑스어           | フランス語               | 法语               |
 
-## 설정 및 관리 (Settings & Management)
+# 설정 및 관리 (Settings & Management)
 
 | 설명(개발용)                                 | English             | Korean             | Japanese                 | Simplified Chinese |
 | :------------------------------------------- | :------------------ | :----------------- | :----------------------- | :----------------- |
@@ -72,7 +76,7 @@
 | 컨텍스트 메뉴 (우클릭)                      | Context Menu        | 컨텍스트 메뉴      | コンテキストメニュ       | 右键菜单           |
 | 기본 이미지 폴더                            | Default Image Folder | 기본 이미지 폴더  | デフォルト画像フォルダ   | 默认图像文件夹     |
 
-## AI 연동 및 개발 도구 (AI Integration & Developer Tools)
+# AI 연동 및 개발 도구 (AI Integration & Developer Tools)
 
 | 설명(개발용)                                 | English             | Korean             | Japanese                 | Simplified Chinese |
 | :------------------------------------------- | :------------------ | :----------------- | :----------------------- | :----------------- |
@@ -86,7 +90,7 @@
 | REST API 명세를 기술하는 표준 규격           | OpenAPI             | OpenAPI            | OpenAPI                  | OpenAPI            |
 | HTTP 기반 API 호출 클라이언트 도구           | REST Client         | REST Client        | REST クライアント        | REST 客户端        |
 
-## 참고 (Reference)
+# 참고 (Reference)
 
 > **수집 출처**:
 > *   Source Code: `Localizable.xcstrings`, `PreferencesWindowController.swift`, `PresetManager.swift`, `RESTServer.swift`

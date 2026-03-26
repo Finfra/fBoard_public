@@ -1,14 +1,18 @@
+---
+title: fBoard Pro
+description: fBoard Pro 문서
+date: 2026-03-26
+---
+
 [![ko](https://img.shields.io/badge/lang-ko-red.svg)](./README_kr.md)
 
 <a href="https://finfra.kr/product/fBoard/en/index.html"><img src="./manual/app-icon.png" width="28"> Product Page</a>
-
-# fBoard Pro
 
 > **Catch everyone's eye with your own custom screen board.**
 
 macOS Custom Background Tool. Create beautiful presentation backgrounds, protect desktop privacy, and match your brand colors with one click.
 
-## Features
+# Features
 
 - **Beautiful Backgrounds** - Custom backgrounds for presentations
 - **Privacy Protection** - Hide desktop information instantly
@@ -16,19 +20,30 @@ macOS Custom Background Tool. Create beautiful presentation backgrounds, protect
 - **One-click Cleanup** - Simple menu bar icon activation
 - **Color Matching** - Match your brand colors
 - **Multi-Display Support** - Works across multiple monitors
+- **AI Agent Integration** - Automate with Claude, Gemini, and MCP
 
-## Requirements
+# AI Agent Integration
+
+Automate and extend fBoard with AI agents. All integration methods use the built-in REST API.
+
+| Platform | Integration Method | Details |
+|----------|-------------------|---------|
+| **Claude** | Marketplace Plugin (Skill) | [Install via Claude Code](./agents/claude/) |
+| **Gemini** | Workflow Installation | [Install via Gemini](./agents/gemini/) |
+| **MCP** | Model Context Protocol Server | [MCP Server Setup](./mcp/) |
+
+# Requirements
 
 - macOS 12.0 or later
 
-## Product Page
+# Product Page
 
 | Language | Link |
 |----------|------|
 | English | [fBoard - Product Page](https://finfra.kr/product/fBoard/en/index.html) |
 | Korean | [fBoard - 제품 페이지](https://finfra.kr/product/fBoard/kr/index.html) |
 
-## Other Apps by finfra
+# Other Apps by finfra
 
 | App | Description | Link |
 |-----|-------------|------|
@@ -38,7 +53,7 @@ macOS Custom Background Tool. Create beautiful presentation backgrounds, protect
 | fQRGen | Clipboard to QR code, instantly | [Product Page](https://finfra.kr/product/fQRGen/en/index.html) |
 | fGoogleSheet | The fastest Google Sheets menu bar app for Mac | [Product Page](https://finfra.kr/product/fGoogleSheet/en/index.html) |
 
-## Documentation
+# Documentation
 
 | Document | Description |
 |----------|-------------|
@@ -48,12 +63,12 @@ macOS Custom Background Tool. Create beautiful presentation backgrounds, protect
 | [Claude Code Skill](./agents/claude/) | Claude Code plugin |
 | [Localization](./localization/) | Multi-language string resources |
 
-## Community & Support
+# Community & Support
 
-### Issues
+## Issues
 - [GitHub Issues](https://github.com/Finfra/fBoard_public/issues)
 
-### Board (English)
+## Board (English)
 | Category | Link |
 |----------|------|
 | Notice | [fBoard Notice](https://finfra.kr/w1/category/fboard-notice/) |
@@ -61,7 +76,7 @@ macOS Custom Background Tool. Create beautiful presentation backgrounds, protect
 | QnA | [fBoard QnA](https://finfra.kr/w1/category/fboard-qna/) |
 | Feedback | [fBoard Feedback](https://finfra.kr/w1/category/fboard-feedback/) |
 
-### Board (Korean)
+## Board (Korean)
 | Category | Link |
 |----------|------|
 | Notice | [fBoard 공지](https://finfra.kr/w1/category/fboard-notice-kr/) |
@@ -69,6 +84,6 @@ macOS Custom Background Tool. Create beautiful presentation backgrounds, protect
 | QnA | [fBoard QnA](https://finfra.kr/w1/category/fboard-qna-kr/) |
 | Feedback | [fBoard 피드백](https://finfra.kr/w1/category/fboard-feedback-kr/) |
 
-## License
+# License
 
 Copyright (c) finfra.kr. All rights reserved.

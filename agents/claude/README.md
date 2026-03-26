@@ -1,22 +1,26 @@
-# fBoard Claude Code Plugin
+---
+title: fBoard Claude Code Plugin
+description: fBoard Claude Code Plugin 문서
+date: 2026-03-26
+---
 
 > **This plugin has been moved to [f-claude-plugins](https://github.com/Finfra/f-claude-plugins).**
 
-## New Location
+# New Location
 
 The fBoard Claude Code plugin is now maintained in the unified plugin repository:
 
 - **Repository**: [Finfra/f-claude-plugins](https://github.com/Finfra/f-claude-plugins)
 - **Path**: `fBoard/`
 
-## Installation
+# Installation
 
 ```
 /plugin marketplace add Finfra/f-claude-plugins
 /plugin install fboard@f-claude-plugins
 ```
 
-## Manual Install
+# Manual Install
 
 ```bash
 git clone https://github.com/Finfra/f-claude-plugins.git

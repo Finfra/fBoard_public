@@ -1,9 +1,13 @@
-# fBoard MCP Server
+---
+title: fBoard MCP Server
+description: fBoard MCP Server 문서
+date: 2026-03-26
+---
 
 An [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) server that exposes the fBoard REST API as tools.
 Control your fBoard whiteboard app directly from AI agents such as Claude Code and Claude Desktop.
 
-## Prerequisites
+# Prerequisites
 
 The fBoard app must be running with REST API enabled:
 
@@ -15,9 +19,9 @@ Default server address: `http://localhost:3012`
 
 ---
 
-## Installation
+# Installation
 
-### Option 1: Global Install (Recommended)
+## Option 1: Global Install (Recommended)
 
 ```bash
 npm install -g fboard-mcp
@@ -25,11 +29,11 @@ npm install -g fboard-mcp
 
 [![npm](https://img.shields.io/npm/v/fboard-mcp)](https://www.npmjs.com/package/fboard-mcp)
 
-### Option 2: npx (No Installation Required)
+## Option 2: npx (No Installation Required)
 
 Run directly via `npx` in your MCP configuration.
 
-### Option 3: From Source
+## Option 3: From Source
 
 ```bash
 git clone https://github.com/nowage/fBoard.git
@@ -39,9 +43,9 @@ npm install
 
 ---
 
-## Configuration
+# Configuration
 
-### Claude Code
+## Claude Code
 
 * Add to `~/.claude/settings.json` or project `.claude/settings.json`:
   - For Claude Desktop, add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
@@ -80,7 +84,7 @@ npm install
 }
 ```
 
-### After Global Install
+## After Global Install
 
 ```json
 {
@@ -94,9 +98,9 @@ npm install
 
 ---
 
-## Tools
+# Tools
 
-### 1. `health_check`
+## 1. `health_check`
 
 Check the fBoard server status.
 
@@ -113,7 +117,7 @@ Check the fBoard server status.
 
 ---
 
-### 2. `get_status`
+## 2. `get_status`
 
 Get the full application status (window, background, presets).
 
@@ -121,7 +125,7 @@ Get the full application status (window, background, presets).
 
 ---
 
-### 3. `get_window`
+## 3. `get_window`
 
 Get the current window state (position, size, level, screen).
 
@@ -138,7 +142,7 @@ Get the current window state (position, size, level, screen).
 
 ---
 
-### 4. `set_window_level`
+## 4. `set_window_level`
 
 Set the window level.
 
@@ -150,7 +154,7 @@ Set the window level.
 
 ---
 
-### 5. `set_window_frame`
+## 5. `set_window_frame`
 
 Set the window position and/or size.
 
@@ -170,7 +174,7 @@ Set the fBoard window to 800x600 at position (100, 100)
 
 ---
 
-### 6. `center_window`
+## 6. `center_window`
 
 Center the window on the current screen.
 
@@ -178,7 +182,7 @@ Center the window on the current screen.
 
 ---
 
-### 7. `reset_window`
+## 7. `reset_window`
 
 Reset the window to its default size.
 
@@ -186,7 +190,7 @@ Reset the window to its default size.
 
 ---
 
-### 8. `toggle_fullscreen`
+## 8. `toggle_fullscreen`
 
 Toggle fullscreen mode.
 
@@ -194,7 +198,7 @@ Toggle fullscreen mode.
 
 ---
 
-### 9. `move_to_screen`
+## 9. `move_to_screen`
 
 Move the window to a specific screen (monitor).
 
@@ -206,7 +210,7 @@ Move the window to a specific screen (monitor).
 
 ---
 
-### 10. `get_background`
+## 10. `get_background`
 
 Get the current background state (color, image, fill mode).
 
@@ -225,7 +229,7 @@ Get the current background state (color, image, fill mode).
 
 ---
 
-### 11. `set_background_color`
+## 11. `set_background_color`
 
 Set the background color.
 
@@ -243,7 +247,7 @@ Set the fBoard background to light blue (#87CEEB) with 80% opacity
 
 ---
 
-### 12. `set_background_image`
+## 12. `set_background_image`
 
 Set a background image.
 
@@ -256,7 +260,7 @@ Set a background image.
 
 ---
 
-### 13. `remove_background_image`
+## 13. `remove_background_image`
 
 Remove the background image.
 
@@ -264,7 +268,7 @@ Remove the background image.
 
 ---
 
-### 14. `set_fill_mode`
+## 14. `set_fill_mode`
 
 Change the image fill mode.
 
@@ -276,7 +280,7 @@ Change the image fill mode.
 
 ---
 
-### 15. `get_presets`
+## 15. `get_presets`
 
 List all saved presets.
 
@@ -299,7 +303,7 @@ List all saved presets.
 
 ---
 
-### 16. `save_preset`
+## 16. `save_preset`
 
 Save the current window state as a preset.
 
@@ -311,7 +315,7 @@ Save the current window state as a preset.
 
 ---
 
-### 17. `apply_preset`
+## 17. `apply_preset`
 
 Apply a saved preset.
 
@@ -323,7 +327,7 @@ Apply a saved preset.
 
 ---
 
-### 18. `delete_preset`
+## 18. `delete_preset`
 
 Delete a preset.
 
@@ -335,7 +339,7 @@ Delete a preset.
 
 ---
 
-### 19. `get_screens`
+## 19. `get_screens`
 
 List all connected screens (monitors).
 
@@ -357,9 +361,9 @@ List all connected screens (monitors).
 
 ---
 
-## Debugging
+# Debugging
 
-### Test with MCP Inspector
+## Test with MCP Inspector
 
 ```bash
 npx @modelcontextprotocol/inspector npx fboard-mcp
@@ -367,7 +371,7 @@ npx @modelcontextprotocol/inspector npx fboard-mcp
 
 Opens the Inspector UI in your browser to test each tool interactively.
 
-### Verify Server Connection
+## Verify Server Connection
 
 ```bash
 # Check if the fBoard REST API server is running
@@ -376,7 +380,7 @@ curl http://localhost:3012/
 
 ---
 
-## Publishing to npm
+# Publishing to npm
 
 ```bash
 cd mcp
@@ -385,7 +389,7 @@ npm publish
 
 ---
 
-## Architecture
+# Architecture
 
 ```
 Claude Code / Claude Desktop
@@ -402,6 +406,6 @@ fBoard Server (localhost:3012)
 
 ---
 
-## License
+# License
 
 MIT
