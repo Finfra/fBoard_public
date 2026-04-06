@@ -10,8 +10,8 @@ date: 2026-03-26
 
 The fBoard Claude Code plugin is now maintained in the unified plugin repository:
 
-- **Repository**: [Finfra/f-claude-plugins](https://github.com/Finfra/f-claude-plugins)
-- **Path**: `fBoard/`
+* **Repository**: [Finfra/f-claude-plugins](https://github.com/Finfra/f-claude-plugins)
+* **Path**: `fBoard/`
 
 # Installation
 

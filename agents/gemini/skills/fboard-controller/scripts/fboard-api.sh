@@ -15,6 +15,11 @@ case "$cmd" in
     opacity=${2:-1.0}
     curl -s -X POST "$API_URL/background/color" -H "Content-Type: application/json" -d "{\"color\":\"$color\", \"opacity\":$opacity}"
     ;;
+  bg-image)
+    filepath=$1
+    fillmode=${2:-fill}
+    curl -s -F "file=@$filepath" -F "fillMode=$fillmode" "$API_URL/background/image"
+    ;;
   bg-image-remove)
     curl -s -X DELETE "$API_URL/background/image"
     ;;
@@ -36,7 +41,7 @@ case "$cmd" in
     curl -s -X POST "$API_URL/presets/apply" -H "Content-Type: application/json" -d "{\"id\":\"$id\"}"
     ;;
   *)
-    echo "Usage: $0 {status|bg-color|bg-image-remove|window-center|window-level|window-fullscreen|presets|preset-apply} [args]"
+    echo "Usage: $0 {status|bg-color|bg-image|bg-image-remove|window-center|window-level|window-fullscreen|presets|preset-apply} [args]"
     exit 1
     ;;
 esac

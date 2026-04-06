@@ -8,9 +8,9 @@ date: 2026-03-26
 
 fBoard provides a REST API for remotely controlling the macOS whiteboard application.
 
-| Server | Tech Stack | Default Port |
-|--------|-----------|--------------|
-| macOS native app | Swift / Network.framework (NWListener) | 3012 |
+| Server           | Tech Stack                             | Default Port |
+| ---------------- | -------------------------------------- | ------------ |
+| macOS native app | Swift / Network.framework (NWListener) | 3012         |
 
 > OpenAPI 3.1 spec: [openapi.yaml](./openapi.yaml)
 
@@ -18,9 +18,9 @@ fBoard provides a REST API for remotely controlling the macOS whiteboard applica
 
 # Security
 
-- The API server is **disabled by default** and must be explicitly enabled in settings.
-- By default, only **localhost (127.0.0.1)** connections are allowed.
-- No authentication mechanism is currently implemented. Use only within trusted local network environments.
+* The API server is **disabled by default** and must be explicitly enabled in settings.
+* By default, only **localhost (127.0.0.1)** connections are allowed.
+* No authentication mechanism is currently implemented. Use only within trusted local network environments.
 
 ---
 
@@ -104,9 +104,9 @@ Content-Type: application/json
 
 ### Request Parameters
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `level` | string | Yes | One of `"normal"`, `"floating"`, `"background"` |
+| Field   | Type   | Required | Description                                     |
+| ------- | ------ | -------- | ----------------------------------------------- |
+| `level` | string | Yes      | One of `"normal"`, `"floating"`, `"background"` |
 
 ### Request Example
 
@@ -144,12 +144,12 @@ Content-Type: application/json
 
 ### Request Parameters
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `x` | number | No | X coordinate (keeps current value if omitted) |
-| `y` | number | No | Y coordinate (keeps current value if omitted) |
-| `width` | number | No | Width (keeps current value if omitted) |
-| `height` | number | No | Height (keeps current value if omitted) |
+| Field    | Type   | Required | Description                                    |
+| -------- | ------ | -------- | ---------------------------------------------- |
+| `x`      | number | No       | X coordinate (keeps current value if omitted)  |
+| `y`      | number | No       | Y coordinate (keeps current value if omitted)  |
+| `width`  | number | No       | Width (keeps current value if omitted)         |
+| `height` | number | No       | Height (keeps current value if omitted)        |
 
 ### Request Example
 
@@ -230,9 +230,9 @@ Content-Type: application/json
 
 ### Request Parameters
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `screenIndex` | integer | Yes | Target screen index (0-based) |
+| Field         | Type    | Required | Description                   |
+| ------------- | ------- | -------- | ----------------------------- |
+| `screenIndex` | integer | Yes      | Target screen index (0-based) |
 
 ### Request Example
 
@@ -290,10 +290,10 @@ Content-Type: application/json
 
 ### Request Parameters
 
-| Field | Type | Required | Default | Description |
-|-------|------|----------|---------|-------------|
-| `color` | string | Yes | — | HEX color code (e.g., `"#FF5733"`) |
-| `opacity` | number | No | `1.0` | Opacity value (0.0 ~ 1.0) |
+| Field     | Type   | Required | Default | Description                        |
+| --------- | ------ | -------- | ------- | ---------------------------------- |
+| `color`   | string | Yes      | —       | HEX color code (e.g., `"#FF5733"`) |
+| `opacity` | number | No       | `1.0`   | Opacity value (0.0 ~ 1.0)         |
 
 ### Request Example
 
@@ -320,23 +320,24 @@ Content-Type: application/json
 
 ```
 POST /api/background/image
-Content-Type: application/json
+Content-Type: multipart/form-data
 ```
 
-### Request Parameters
+Upload an image file directly via multipart form data. This bypasses App Sandbox file access restrictions.
 
-| Field | Type | Required | Default | Description |
-|-------|------|----------|---------|-------------|
-| `path` | string | Yes | — | Absolute path to image file |
-| `fillMode` | string | No | `"fill"` | `"fit"`, `"fill"`, `"stretch"`, `"tile"` |
+### Request Parameters (multipart/form-data)
+
+| Field      | Type   | Required | Default  | Description                              |
+| ---------- | ------ | -------- | -------- | ---------------------------------------- |
+| `file`     | file   | Yes      | —        | Image file to upload                     |
+| `fillMode` | string | No       | `"fill"` | `"fit"`, `"fill"`, `"stretch"`, `"tile"` |
 
 ### Request Example
 
-```json
-{
-  "path": "/Users/Shared/wallpaper.png",
-  "fillMode": "fit"
-}
+```bash
+curl -F "file=@/path/to/wallpaper.png" \
+     -F "fillMode=fit" \
+     http://localhost:3012/api/background/image
 ```
 
 ### Response
@@ -345,15 +346,15 @@ Content-Type: application/json
 ```json
 {
   "success": true,
-  "imagePath": "/Users/Shared/wallpaper.png",
+  "imagePath": "/path/in/app/container/wallpaper.png",
   "fillMode": "fit"
 }
 ```
 
-**Error (400)**: File not found
+**Error (400)**: No file uploaded
 ```json
 {
-  "error": "Image file not found"
+  "error": "No file part in multipart data"
 }
 ```
 
@@ -384,9 +385,9 @@ Content-Type: application/json
 
 ### Request Parameters
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `fillMode` | string | Yes | `"fit"`, `"fill"`, `"stretch"`, `"tile"` |
+| Field      | Type   | Required | Description                              |
+| ---------- | ------ | -------- | ---------------------------------------- |
+| `fillMode` | string | Yes      | `"fit"`, `"fill"`, `"stretch"`, `"tile"` |
 
 ### Response (200)
 
@@ -399,7 +400,45 @@ Content-Type: application/json
 
 ---
 
-## 15. List All Presets
+## 15. Set Gradient Background
+
+```
+POST /api/background/gradient
+Content-Type: application/json
+```
+
+### Request Parameters
+
+| Field        | Type   | Required | Default        | Description                                                             |
+| ------------ | ------ | -------- | -------------- | ----------------------------------------------------------------------- |
+| `startColor` | string | Yes      | —              | Gradient start HEX color (e.g., `"#FF5733"`)                           |
+| `endColor`   | string | Yes      | —              | Gradient end HEX color (e.g., `"#3366FF"`)                             |
+| `direction`  | string | No       | `"topToBottom"` | `"topToBottom"`, `"leftToRight"`, `"topLeftToBottomRight"`, `"topRightToBottomLeft"` |
+
+### Request Example
+
+```json
+{
+  "startColor": "#FF5733",
+  "endColor": "#3366FF",
+  "direction": "topToBottom"
+}
+```
+
+### Response (200)
+
+```json
+{
+  "success": true,
+  "startColor": "#FF5733",
+  "endColor": "#3366FF",
+  "direction": "topToBottom"
+}
+```
+
+---
+
+## 16. List All Presets
 
 ```
 GET /api/presets
@@ -423,7 +462,7 @@ GET /api/presets
 
 ---
 
-## 16. Save Preset
+## 17. Save Preset
 
 ```
 POST /api/presets
@@ -432,9 +471,9 @@ Content-Type: application/json
 
 ### Request Parameters
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `name` | string | Yes | Preset name |
+| Field  | Type   | Required | Description |
+| ------ | ------ | -------- | ----------- |
+| `name` | string | Yes      | Preset name |
 
 Automatically captures the current window state (position, size, level) and saves it as a preset.
 
@@ -471,7 +510,7 @@ Automatically captures the current window state (position, size, level) and save
 
 ---
 
-## 17. Apply Preset
+## 18. Apply Preset
 
 ```
 POST /api/presets/apply
@@ -480,9 +519,9 @@ Content-Type: application/json
 
 ### Request Parameters
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `id` | string | Yes | Preset UUID |
+| Field | Type   | Required | Description |
+| ----- | ------ | -------- | ----------- |
+| `id`  | string | Yes      | Preset UUID |
 
 ### Request Example
 
@@ -511,7 +550,7 @@ Content-Type: application/json
 
 ---
 
-## 18. Delete Preset
+## 19. Delete Preset
 
 ```
 DELETE /api/presets/{id}
@@ -519,9 +558,9 @@ DELETE /api/presets/{id}
 
 ### Path Parameters
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `id` | string | Yes | Preset UUID |
+| Field | Type   | Required | Description |
+| ----- | ------ | -------- | ----------- |
+| `id`  | string | Yes      | Preset UUID |
 
 ### Response
 
@@ -535,14 +574,14 @@ DELETE /api/presets/{id}
 
 **Errors**:
 
-| Status Code | Cause | Response Example |
-|-------------|-------|-----------------|
-| 403 | Attempted to delete a built-in preset | `{"error": "Cannot delete built-in preset"}` |
-| 404 | Preset does not exist | `{"error": "Preset not found"}` |
+| Status Code | Cause                                 | Response Example                             |
+| ----------- | ------------------------------------- | -------------------------------------------- |
+| 403         | Attempted to delete a built-in preset | `{"error": "Cannot delete built-in preset"}` |
+| 404         | Preset does not exist                 | `{"error": "Preset not found"}`              |
 
 ---
 
-## 19. List Connected Screens
+## 20. List Connected Screens
 
 ```
 GET /api/screens
@@ -601,9 +640,14 @@ curl -X POST http://localhost:3012/api/background/color \
   -d '{"color": "#FF5733", "opacity": 0.8}'
 
 # Set background image
-curl -X POST http://localhost:3012/api/background/image \
+curl -F "file=@/Users/Shared/wallpaper.png" \
+     -F "fillMode=fit" \
+     http://localhost:3012/api/background/image
+
+# Set gradient background
+curl -X POST http://localhost:3012/api/background/gradient \
   -H "Content-Type: application/json" \
-  -d '{"path": "/Users/Shared/wallpaper.png", "fillMode": "fit"}'
+  -d '{"startColor": "#FF5733", "endColor": "#3366FF", "direction": "topToBottom"}'
 
 # Save preset
 curl -X POST http://localhost:3012/api/presets \
@@ -640,6 +684,10 @@ print(r.json())
 r = requests.post(f"{BASE}/api/background/color",
     json={"color": "#FF5733", "opacity": 0.8})
 
+# Set gradient background
+r = requests.post(f"{BASE}/api/background/gradient",
+    json={"startColor": "#FF5733", "endColor": "#3366FF", "direction": "topToBottom"})
+
 # Save preset
 r = requests.post(f"{BASE}/api/presets",
     json={"name": "Presentation Mode"})
@@ -654,7 +702,7 @@ r = requests.post(f"{BASE}/api/presets/apply",
 # Test
 
 ```bash
-# Run automated tests (19 items)
+# Run automated tests (20 items)
 bash api/test-api.sh
 
 # Remote server test
@@ -674,13 +722,14 @@ Test items:
 10. Set background color (POST `/api/background/color`)
 11. Set fill mode (POST `/api/background/fill-mode`)
 12. Remove background image (DELETE `/api/background/image`)
-13. List presets (GET `/api/presets`)
-14. Save preset (POST `/api/presets`)
-15. Apply preset (POST `/api/presets/apply`)
-16. Delete preset (DELETE `/api/presets/{id}`)
-17. List screens (GET `/api/screens`)
-18. 404 error response
-19. 400 invalid parameter error
+13. Set gradient background (POST `/api/background/gradient`)
+14. List presets (GET `/api/presets`)
+15. Save preset (POST `/api/presets`)
+16. Apply preset (POST `/api/presets/apply`)
+17. Delete preset (DELETE `/api/presets/{id}`)
+18. List screens (GET `/api/screens`)
+19. 404 error response
+20. 400 invalid parameter error
 
 ---
 
@@ -694,8 +743,8 @@ All errors are returned in a consistent JSON format:
 }
 ```
 
-| Status Code | Description |
-|-------------|-------------|
-| 400 | Bad request (missing parameters, invalid values) |
-| 403 | Forbidden (e.g., deleting a built-in preset) |
-| 404 | Resource not found |
+| Status Code | Description                                      |
+| ----------- | ------------------------------------------------ |
+| 400         | Bad request (missing parameters, invalid values) |
+| 403         | Forbidden (e.g., deleting a built-in preset)     |
+| 404         | Resource not found                               |

@@ -301,14 +301,15 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
               type: object
-              required: [path]
+              required: [file]
               properties:
-                path:
+                file:
                   type: string
-                  description: Absolute path to image file
+                  format: binary
+                  description: Image file to upload
                 fillMode:
                   type: string
                   enum: [fit, fill, stretch, tile]
@@ -378,6 +379,57 @@ paths:
                     example: true
                   fillMode:
                     type: string
+
+  /api/background/gradient:
+    post:
+      summary: Set gradient background
+      operationId: setGradient
+      tags: [Background]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [startColor, endColor]
+              properties:
+                startColor:
+                  type: string
+                  pattern: "^#[0-9A-Fa-f]{6}$"
+                  description: Gradient start HEX color
+                  example: "#FF5733"
+                endColor:
+                  type: string
+                  pattern: "^#[0-9A-Fa-f]{6}$"
+                  description: Gradient end HEX color
+                  example: "#3366FF"
+                direction:
+                  type: string
+                  enum: [topToBottom, leftToRight, topLeftToBottomRight, topRightToBottomLeft]
+                  default: topToBottom
+                  description: Gradient direction
+      responses:
+        "200":
+          description: Gradient background set
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  startColor:
+                    type: string
+                    example: "#FF5733"
+                  endColor:
+                    type: string
+                    example: "#3366FF"
+                  direction:
+                    type: string
+                    example: topToBottom
+        "400":
+          $ref: "#/components/responses/BadRequest"
 
   /api/presets:
     get:
@@ -554,7 +606,7 @@ components:
       properties:
         type:
           type: string
-          enum: [color, image]
+          enum: [color, image, gradient]
         color:
           type: string
           description: HEX color code
@@ -568,6 +620,19 @@ components:
         fillMode:
           type: string
           enum: [fit, fill, stretch, tile]
+        gradientStartColor:
+          type: string
+          nullable: true
+          description: Gradient start color (only when type is gradient)
+        gradientEndColor:
+          type: string
+          nullable: true
+          description: Gradient end color (only when type is gradient)
+        gradientDirection:
+          type: string
+          nullable: true
+          enum: [topToBottom, leftToRight, topLeftToBottomRight, topRightToBottomLeft]
+          description: Gradient direction (only when type is gradient)
 
     Preset:
       type: object

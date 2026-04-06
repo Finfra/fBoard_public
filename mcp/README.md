@@ -249,13 +249,13 @@ Set the fBoard background to light blue (#87CEEB) with 80% opacity
 
 ## 12. `set_background_image`
 
-Set a background image.
+Set a background image. The file is read locally and uploaded via multipart/form-data to bypass App Sandbox restrictions.
 
 **Parameters**:
 
 | Name       | Type   | Required | Description                              |
 | ---------- | ------ | -------- | ---------------------------------------- |
-| `path`     | string | Yes      | Image file path                          |
+| `path`     | string | Yes      | Local image file path                    |
 | `fillMode` | enum   | No       | `"fit"`, `"fill"`, `"stretch"`, `"tile"` |
 
 ---

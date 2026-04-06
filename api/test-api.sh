@@ -133,8 +133,29 @@ run_test_body "POST /api/background/fill-mode - Set fill mode" "200" '"success"'
   -H "Content-Type: application/json" \
   -d '{"fillMode": "fill"}'
 
+# 1x1 PNG 테스트 이미지 생성
+TEST_IMG="/tmp/fboard_test_img.png"
+printf '\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x02\x00\x00\x00\x90wS\xde\x00\x00\x00\x0cIDATx\x9cc\xf8\x0f\x00\x00\x01\x01\x00\x05\x18\xd8N\x00\x00\x00\x00IEND\xaeB`\x82' > "$TEST_IMG"
+
+run_test_body "POST /api/background/image - Set image (multipart)" "200" '"success"' \
+  -X POST "$SERVER/api/background/image" \
+  -F "file=@$TEST_IMG" \
+  -F "fillMode=stretch"
+
+rm -f "$TEST_IMG"
+
 run_test_body "DELETE /api/background/image - Remove image" "200" '"success"' \
   -X DELETE "$SERVER/api/background/image"
+
+run_test_body "POST /api/background/gradient - Set gradient" "200" '"success"' \
+  -X POST "$SERVER/api/background/gradient" \
+  -H "Content-Type: application/json" \
+  -d '{"startColor": "#FF5733", "endColor": "#3366FF", "direction": "topToBottom"}'
+
+# gradient 후 다시 단색으로 복원
+curl -s -o /dev/null -X POST "$SERVER/api/background/color" \
+  -H "Content-Type: application/json" \
+  -d '{"color": "#FFFFFF", "opacity": 1.0}'
 
 # --- Presets ---
 echo ""

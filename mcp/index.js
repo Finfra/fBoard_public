@@ -16,6 +16,8 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
+import { readFileSync } from "fs";
+import { basename } from "path";
 
 // 서버 주소 결정: CLI 인자 > 환경변수 > 기본값
 function getServerUrl() {
@@ -298,7 +300,7 @@ server.tool(
 // ─── Tool 12: set_background_image ───
 server.tool(
   "set_background_image",
-  "배경 이미지를 설정합니다 (파일 경로 지정)",
+  "배경 이미지를 설정합니다 (파일을 multipart로 업로드)",
   {
     path: z.string().describe("이미지 파일 경로"),
     fillMode: z
@@ -306,11 +308,23 @@ server.tool(
       .optional()
       .describe("이미지 채우기 모드: fit, fill, stretch, tile"),
   },
-  async ({ path, fillMode }) => {
+  async ({ path: filePath, fillMode }) => {
     try {
-      const body = { path };
-      if (fillMode) body.fillMode = fillMode;
-      const data = await jsonPost("/api/background/image", body);
+      const fileData = readFileSync(filePath);
+      const fileName = basename(filePath);
+      const form = new FormData();
+      form.append("file", new Blob([fileData]), fileName);
+      if (fillMode) form.append("fillMode", fillMode);
+
+      const res = await fetch(`${SERVER_URL}/api/background/image`, {
+        method: "POST",
+        body: form,
+      });
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(`HTTP ${res.status}: ${text}`);
+      }
+      const data = await res.json();
       return textResult(data);
     } catch (err) {
       return errorResult(`배경 이미지 설정 실패: ${err.message}`);
