@@ -247,7 +247,26 @@ fBoard 배경을 하늘색(#87CEEB)으로 80% 투명도로 설정해줘
 
 ---
 
-## 12. `set_background_image`
+## 12. `set_background_gradient`
+
+그라디언트 배경을 설정합니다.
+
+**파라미터**:
+
+| 이름         | 타입   | 필수   | 설명                                                                                              |
+| ------------ | ------ | ------ | ------------------------------------------------------------------------------------------------- |
+| `startColor` | string | 예     | 그라디언트 시작 hex 색상 (예: `"#FF5733"`)                                                          |
+| `endColor`   | string | 예     | 그라디언트 끝 hex 색상 (예: `"#3366FF"`)                                                            |
+| `direction`  | enum   | 아니오 | `"topToBottom"`, `"bottomToTop"`, `"leftToRight"`, `"rightToLeft"`, `"topLeftToBottomRight"`, `"topRightToBottomLeft"` (기본값: `topToBottom`) |
+
+**사용 예시** (Claude에게 요청):
+```
+fBoard 배경을 주황색(#FF5733)에서 파란색(#3366FF)으로 위에서 아래 그라디언트로 설정해줘
+```
+
+---
+
+## 13. `set_background_image`
 
 배경 이미지를 설정합니다. 파일을 로컬에서 읽어 multipart/form-data로 업로드하여 App Sandbox 제한을 우회합니다.
 
@@ -260,7 +279,7 @@ fBoard 배경을 하늘색(#87CEEB)으로 80% 투명도로 설정해줘
 
 ---
 
-## 13. `remove_background_image`
+## 14. `remove_background_image`
 
 배경 이미지를 제거합니다.
 
@@ -268,7 +287,7 @@ fBoard 배경을 하늘색(#87CEEB)으로 80% 투명도로 설정해줘
 
 ---
 
-## 14. `set_fill_mode`
+## 15. `set_fill_mode`
 
 이미지 채우기 모드를 변경합니다.
 
@@ -280,7 +299,7 @@ fBoard 배경을 하늘색(#87CEEB)으로 80% 투명도로 설정해줘
 
 ---
 
-## 15. `get_presets`
+## 16. `get_presets`
 
 저장된 프리셋 목록을 조회합니다.
 
@@ -303,7 +322,7 @@ fBoard 배경을 하늘색(#87CEEB)으로 80% 투명도로 설정해줘
 
 ---
 
-## 16. `save_preset`
+## 17. `save_preset`
 
 현재 윈도우 상태를 프리셋으로 저장합니다.
 
@@ -315,7 +334,7 @@ fBoard 배경을 하늘색(#87CEEB)으로 80% 투명도로 설정해줘
 
 ---
 
-## 17. `apply_preset`
+## 18. `apply_preset`
 
 저장된 프리셋을 적용합니다.
 
@@ -327,7 +346,7 @@ fBoard 배경을 하늘색(#87CEEB)으로 80% 투명도로 설정해줘
 
 ---
 
-## 18. `delete_preset`
+## 19. `delete_preset`
 
 프리셋을 삭제합니다.
 
@@ -339,7 +358,7 @@ fBoard 배경을 하늘색(#87CEEB)으로 80% 투명도로 설정해줘
 
 ---
 
-## 19. `get_screens`
+## 20. `get_screens`
 
 연결된 스크린(모니터) 목록을 조회합니다.
 

@@ -247,7 +247,26 @@ Set the fBoard background to light blue (#87CEEB) with 80% opacity
 
 ---
 
-## 12. `set_background_image`
+## 12. `set_background_gradient`
+
+Set a gradient background.
+
+**Parameters**:
+
+| Name         | Type   | Required | Description                                                                                       |
+| ------------ | ------ | -------- | ------------------------------------------------------------------------------------------------- |
+| `startColor` | string | Yes      | Gradient start hex color (e.g., `"#FF5733"`)                                                       |
+| `endColor`   | string | Yes      | Gradient end hex color (e.g., `"#3366FF"`)                                                         |
+| `direction`  | enum   | No       | `"topToBottom"`, `"bottomToTop"`, `"leftToRight"`, `"rightToLeft"`, `"topLeftToBottomRight"`, `"topRightToBottomLeft"` (default: `topToBottom`) |
+
+**Usage example** (ask Claude):
+```
+Set the fBoard background to a gradient from orange (#FF5733) to blue (#3366FF), top to bottom
+```
+
+---
+
+## 13. `set_background_image`
 
 Set a background image. The file is read locally and uploaded via multipart/form-data to bypass App Sandbox restrictions.
 
@@ -260,7 +279,7 @@ Set a background image. The file is read locally and uploaded via multipart/form
 
 ---
 
-## 13. `remove_background_image`
+## 14. `remove_background_image`
 
 Remove the background image.
 
@@ -268,7 +287,7 @@ Remove the background image.
 
 ---
 
-## 14. `set_fill_mode`
+## 15. `set_fill_mode`
 
 Change the image fill mode.
 
@@ -280,7 +299,7 @@ Change the image fill mode.
 
 ---
 
-## 15. `get_presets`
+## 16. `get_presets`
 
 List all saved presets.
 
@@ -303,7 +322,7 @@ List all saved presets.
 
 ---
 
-## 16. `save_preset`
+## 17. `save_preset`
 
 Save the current window state as a preset.
 
@@ -315,7 +334,7 @@ Save the current window state as a preset.
 
 ---
 
-## 17. `apply_preset`
+## 18. `apply_preset`
 
 Apply a saved preset.
 
@@ -327,7 +346,7 @@ Apply a saved preset.
 
 ---
 
-## 18. `delete_preset`
+## 19. `delete_preset`
 
 Delete a preset.
 
@@ -339,7 +358,7 @@ Delete a preset.
 
 ---
 
-## 19. `get_screens`
+## 20. `get_screens`
 
 List all connected screens (monitors).
 

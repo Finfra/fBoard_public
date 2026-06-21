@@ -297,6 +297,41 @@ server.tool(
   }
 );
 
+// ─── Tool 11b: set_background_gradient ───
+server.tool(
+  "set_background_gradient",
+  "그라디언트 배경을 설정합니다 (시작/끝 hex 색상 + 방향)",
+  {
+    startColor: z
+      .string()
+      .describe("그라디언트 시작 hex 색상 (예: #FF5733)"),
+    endColor: z
+      .string()
+      .describe("그라디언트 끝 hex 색상 (예: #3366FF)"),
+    direction: z
+      .enum([
+        "topToBottom",
+        "bottomToTop",
+        "leftToRight",
+        "rightToLeft",
+        "topLeftToBottomRight",
+        "topRightToBottomLeft",
+      ])
+      .optional()
+      .describe("그라디언트 방향 (기본값: topToBottom)"),
+  },
+  async ({ startColor, endColor, direction }) => {
+    try {
+      const body = { startColor, endColor };
+      if (direction) body.direction = direction;
+      const data = await jsonPost("/api/background/gradient", body);
+      return textResult(data);
+    } catch (err) {
+      return errorResult(`그라디언트 배경 설정 실패: ${err.message}`);
+    }
+  }
+);
+
 // ─── Tool 12: set_background_image ───
 server.tool(
   "set_background_image",
