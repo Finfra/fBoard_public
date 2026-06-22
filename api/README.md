@@ -262,6 +262,55 @@ Content-Type: application/json
 
 ---
 
+## 9.1. Set Traffic Lights (Window Buttons)
+
+```
+POST /api/window/traffic-lights
+Content-Type: application/json
+```
+
+Controls visibility of the standard window buttons (red/yellow/green). Default is shown (`hide=false`). Provide at least one of `hide` or `onHover`.
+
+### Request Parameters
+
+| Field     | Type    | Required | Description                                                   |
+| --------- | ------- | -------- | ------------------------------------------------------------ |
+| `hide`    | boolean | No*      | Hide the window buttons (default `false` = shown)            |
+| `onHover` | boolean | No*      | When hidden, reveal only on top-left hover (default `false`) |
+
+\* At least one of `hide` / `onHover` must be present.
+
+### Request Example
+
+```json
+{
+  "hide": true,
+  "onHover": true
+}
+```
+
+### Response
+
+**Success (200)**:
+```json
+{
+  "success": true,
+  "trafficLights": {
+    "hide": true,
+    "onHover": true
+  }
+}
+```
+
+**Error (400)**: Missing fields
+```json
+{
+  "error": "Missing 'hide' or 'onHover' (boolean) field"
+}
+```
+
+---
+
 ## 10. Get Background State
 
 ```

@@ -238,6 +238,46 @@ paths:
         "400":
           $ref: "#/components/responses/BadRequest"
 
+  /api/window/traffic-lights:
+    post:
+      summary: Set traffic light (window button) visibility
+      description: >
+        Controls visibility of the standard window buttons (red/yellow/green).
+        Provide at least one of `hide` or `onHover`. Default is shown (hide=false).
+        When `hide=true` and `onHover=true`, the buttons stay hidden and appear
+        only while the pointer is in the top-left corner.
+      operationId: setTrafficLights
+      tags: [Window]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              minProperties: 1
+              properties:
+                hide:
+                  type: boolean
+                  description: Hide the window buttons (default false = shown)
+                onHover:
+                  type: boolean
+                  description: When hidden, reveal only on top-left hover (default false)
+      responses:
+        "200":
+          description: Traffic light visibility updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  trafficLights:
+                    $ref: "#/components/schemas/TrafficLights"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
   /api/background:
     get:
       summary: Get background state
@@ -600,6 +640,18 @@ components:
           type: integer
         screenName:
           type: string
+        trafficLights:
+          $ref: "#/components/schemas/TrafficLights"
+
+    TrafficLights:
+      type: object
+      properties:
+        hide:
+          type: boolean
+          description: Whether the window buttons are hidden
+        onHover:
+          type: boolean
+          description: Whether buttons reveal only on top-left hover when hidden
 
     BackgroundState:
       type: object

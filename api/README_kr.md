@@ -262,6 +262,55 @@ Content-Type: application/json
 
 ---
 
+## 9.1. 트래픽라이트(윈도우 버튼) 설정
+
+```
+POST /api/window/traffic-lights
+Content-Type: application/json
+```
+
+표준 윈도우 버튼(빨강/노랑/초록)의 표시 여부를 제어합니다. 기본값은 표시(`hide=false`)이며, `hide`·`onHover` 중 최소 하나는 포함해야 합니다.
+
+### 요청 파라미터
+
+| 필드      | 타입    | 필수 | 설명                                                       |
+| --------- | ------- | ---- | ---------------------------------------------------------- |
+| `hide`    | boolean | 아니오* | 윈도우 버튼 숨기기 (기본 `false` = 표시)                |
+| `onHover` | boolean | 아니오* | 숨김 상태에서 좌상단 hover 시에만 표시 (기본 `false`)   |
+
+\* `hide` / `onHover` 중 최소 하나는 있어야 함.
+
+### 요청 예시
+
+```json
+{
+  "hide": true,
+  "onHover": true
+}
+```
+
+### 응답
+
+**성공 (200)**:
+```json
+{
+  "success": true,
+  "trafficLights": {
+    "hide": true,
+    "onHover": true
+  }
+}
+```
+
+**에러 (400)**: 필드 누락
+```json
+{
+  "error": "Missing 'hide' or 'onHover' (boolean) field"
+}
+```
+
+---
+
 ## 10. 배경 상태 조회
 
 ```
