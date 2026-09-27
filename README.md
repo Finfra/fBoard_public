@@ -86,4 +86,9 @@ Automate and extend fBoard with AI agents. All integration methods use the built
 
 # License
 
-Copyright (c) finfra.kr. All rights reserved.
+This repository (MCP server, REST API documentation, agent plugins, manuals) is released under the [MIT License](./LICENSE).
+
+Copyright (c) 2026 Finfra Co., Ltd. (https://finfra.kr)
+
+* The npm package [`fboard-mcp`](./mcp/) is published under the same MIT license (`package.json` → `"license": "MIT"`).
+* The fBoard app itself (distributed through the Mac App Store) is a proprietary product and is **not** covered by this license.

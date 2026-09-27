@@ -86,4 +86,9 @@ AI 에이전트로 fBoard를 자동화하고 확장하세요. 모든 연동 방�
 
 # 라이선스
 
-Copyright (c) finfra.kr. All rights reserved.
+이 저장소(MCP 서버·REST API 문서·에이전트 플러그인·매뉴얼)는 [MIT License](./LICENSE) 로 공개합니다.
+
+Copyright (c) 2026 Finfra Co., Ltd. (https://finfra.kr)
+
+* npm 패키지 [`fboard-mcp`](./mcp/) 도 같은 MIT 라이선스로 게시됩니다(`package.json` → `"license": "MIT"`).
+* fBoard 앱 본체(Mac App Store 배포)는 유료 제품이며 이 라이선스의 대상이 **아닙니다**.
